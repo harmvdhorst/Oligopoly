@@ -26,4 +26,16 @@ public class PlayerTile extends Tile {
 
     }
 
+    public void changeOwner(GamePlayer player) {
+
+    }
+
+    public void buy(GamePlayer player) {
+
+    }
+
+    public void buyStock(GamePlayer player, int stocks) {
+
+    }
+
 }

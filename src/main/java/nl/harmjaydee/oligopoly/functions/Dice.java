@@ -1,8 +1,13 @@
 package nl.harmjaydee.oligopoly.functions;
 
+import java.util.Random;
+
 public class Dice {
-   final  int [][] numbers = {
-           {1,2,3,4,5,6,7,8,9},
-           {1,2,3,4,5,6,7,8,9}
-   };
+
+    private final Random rand = new Random();
+
+    public int roll(){
+        return rand.nextInt(6) + 1;
+    }
+
 }
