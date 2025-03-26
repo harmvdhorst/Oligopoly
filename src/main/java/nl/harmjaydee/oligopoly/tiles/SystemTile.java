@@ -17,4 +17,9 @@ public class SystemTile extends Tile {
 
     }
 
+    @Override
+    protected void setupEntities() {
+
+    }
+
 }

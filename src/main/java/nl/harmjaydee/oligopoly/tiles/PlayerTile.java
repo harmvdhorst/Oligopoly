@@ -1,5 +1,8 @@
 package nl.harmjaydee.oligopoly.tiles;
 
+import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.entities.impl.RectangleEntity;
 import nl.harmjaydee.oligopoly.GamePlayer;
 import nl.harmjaydee.oligopoly.tiles.enums.Orientation;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
@@ -79,6 +82,11 @@ public class PlayerTile extends Tile {
         }
 
 
+    }
+
+    @Override
+    protected void setupEntities() {
+        addEntity(new RectangleEntity(new Coordinate2D(100, 100), new Size(100, 100)) {});
     }
 
 }

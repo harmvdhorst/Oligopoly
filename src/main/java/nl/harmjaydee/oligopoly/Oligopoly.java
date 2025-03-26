@@ -1,6 +1,7 @@
 package nl.harmjaydee.oligopoly;
 
 import com.github.hanyaeger.api.YaegerGame;
+import nl.harmjaydee.oligopoly.screen.GameScreen;
 
 public class Oligopoly extends YaegerGame {
 
@@ -15,7 +16,7 @@ public class Oligopoly extends YaegerGame {
 
     @Override
     public void setupScenes() {
-
+        addScene(0, new GameScreen());
     }
 
 }
