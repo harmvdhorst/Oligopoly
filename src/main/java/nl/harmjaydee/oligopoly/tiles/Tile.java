@@ -1,13 +1,10 @@
 package nl.harmjaydee.oligopoly.tiles;
 
 import nl.harmjaydee.oligopoly.GamePlayer;
-import nl.harmjaydee.oligopoly.IDrawable;
 import nl.harmjaydee.oligopoly.tiles.enums.Orientation;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
 
-import java.awt.*;
-
-public abstract class Tile implements IDrawable {
+public abstract class Tile {
 
     private final Tiles type;
     private final Orientation orientation;

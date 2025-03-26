@@ -13,11 +13,6 @@ public class SystemTile extends Tile {
     }
 
     @Override
-    public void draw(Graphics g) {
-
-    }
-
-    @Override
     public void use(GamePlayer player, String action) {
 
     }

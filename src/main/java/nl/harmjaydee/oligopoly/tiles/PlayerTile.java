@@ -17,11 +17,6 @@ public class PlayerTile extends Tile {
     }
 
     @Override
-    public void draw(Graphics g) {
-
-    }
-
-    @Override
     public void use(GamePlayer player, String action) {
 
     }
