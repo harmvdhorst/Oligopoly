@@ -3,11 +3,16 @@ package nl.harmjaydee.oligopoly.tiles;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.impl.RectangleEntity;
+import javafx.scene.paint.Color;
 import nl.harmjaydee.oligopoly.GamePlayer;
 import nl.harmjaydee.oligopoly.tiles.enums.Orientation;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
+import nl.harmjaydee.oligopoly.utils.RectangleWrapper;
+import nl.harmjaydee.oligopoly.utils.TileRectangle;
 
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PlayerTile extends Tile {
 
@@ -15,8 +20,8 @@ public class PlayerTile extends Tile {
     private int owner;
     private Tiles type;
 
-    public PlayerTile(Tiles type, Orientation orientation) {
-        super(type, orientation);
+    public PlayerTile(Tiles type) {
+        super(type, type.getOrientation());
         this.type = type;
     }
 
@@ -86,7 +91,15 @@ public class PlayerTile extends Tile {
 
     @Override
     protected void setupEntities() {
-        addEntity(new RectangleEntity(new Coordinate2D(100, 100), new Size(100, 100)) {});
+//        int x = 60 * (type.getPos() - 10);
+//        int y = 20;
+//
+//        if(getOrientation() != Orientation.DOWN) return;
+//
+//        addEntity(new RectangleWrapper(new Coordinate2D(x,y), type.getOrientation(), Color.BLACK));
+//        addEntity(new RectangleWrapper(new Coordinate2D(x + 1,y + 1), new Size(58, 108), Color.WHITE));
+//        addEntity(new RectangleWrapper(new Coordinate2D(x + 1,y + 1), new Size(58, 30), Color.RED));
+        addEntity(new TileRectangle(this.getType()));
     }
 
 }

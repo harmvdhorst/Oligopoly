@@ -12,7 +12,7 @@ public abstract class Tile extends DynamicCompositeEntity {
     private final Orientation orientation;
 
     public Tile(Tiles type, Orientation orientation) {
-        super(new Coordinate2D(100, 100));
+        super(new Coordinate2D(0, 0));
         this.type = type;
         this.orientation = orientation;
     }

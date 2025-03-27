@@ -8,8 +8,8 @@ import java.awt.*;
 
 public class SystemTile extends Tile {
 
-    public SystemTile(Tiles type, Orientation orientation) {
-        super(type, orientation);
+    public SystemTile(Tiles type) {
+        super(type, type.getOrientation());
     }
 
     @Override

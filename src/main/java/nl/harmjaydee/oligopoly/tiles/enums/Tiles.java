@@ -108,4 +108,8 @@ public enum Tiles {
     public int getWorth() {
         return worth;
     }
+
+    public Orientation getOrientation() {
+        return orientation;
+    }
 }

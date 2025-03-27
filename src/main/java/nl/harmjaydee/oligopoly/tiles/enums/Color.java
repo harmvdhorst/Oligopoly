@@ -2,23 +2,28 @@ package nl.harmjaydee.oligopoly.tiles.enums;
 
 public enum Color {
 
-    BROWN(2),
-    LIGHT_BLUE(3),
-    PURPLE(3),
-    ORANGE(3),
-    RED(3),
-    YELLOW(3),
-    GREEN(3),
-    BLUE(2);
+    BROWN(2, javafx.scene.paint.Color.BROWN),
+    LIGHT_BLUE(3, javafx.scene.paint.Color.LIGHTBLUE),
+    PURPLE(3, javafx.scene.paint.Color.PURPLE),
+    ORANGE(3, javafx.scene.paint.Color.ORANGE),
+    RED(3, javafx.scene.paint.Color.RED),
+    YELLOW(3, javafx.scene.paint.Color.YELLOW),
+    GREEN(3, javafx.scene.paint.Color.GREEN),
+    BLUE(2, javafx.scene.paint.Color.BLUE),;
 
     private final int maxTiles;
+    private final javafx.scene.paint.Color color;
 
-    Color(int maxTiles) {
+    Color(int maxTiles, javafx.scene.paint.Color color) {
         this.maxTiles = maxTiles;
+        this.color = color;
     }
 
     public int getMaxTiles() {
         return maxTiles;
     }
 
+    public javafx.scene.paint.Color getColor() {
+        return color;
+    }
 }

@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class RectangleWrapper extends RectangleEntity {
 
-    protected RectangleWrapper(Coordinate2D initialLocation, Size size, Color color) {
+    public RectangleWrapper(Coordinate2D initialLocation, Size size, Color color) {
         super(initialLocation, size);
         setFill(color);
     }
@@ -24,22 +24,22 @@ public class RectangleWrapper extends RectangleEntity {
 
     private int getWidth(Orientation orientation) {
         if(orientation == Orientation.LEFT || orientation == Orientation.RIGHT) {
-            return 200;
+            return 110;
         }
         if(orientation == Orientation.UP || orientation == Orientation.DOWN) {
-            return 100;
+            return 60;
         }
-        return 200;
+        return 110;
     }
 
     private int getHeight(Orientation orientation) {
         if(orientation == Orientation.LEFT || orientation == Orientation.RIGHT) {
-            return 100;
+            return 60;
         }
         if(orientation == Orientation.UP || orientation == Orientation.DOWN) {
-            return 200;
+            return 110;
         }
-        return 100;
+        return 60;
     }
 
 }
