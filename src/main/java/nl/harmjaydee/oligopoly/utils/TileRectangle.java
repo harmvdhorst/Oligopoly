@@ -1,6 +1,7 @@
 package nl.harmjaydee.oligopoly.utils;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.CompositeEntity;
 import com.github.hanyaeger.api.entities.impl.RectangleEntity;
 import javafx.scene.paint.Color;
@@ -9,116 +10,128 @@ import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
 
 public class TileRectangle extends CompositeEntity {
 
-    private Tiles type;
+    private final int tileHeight = 110;
+    private final int tileWidth = 60;
+    private final int sideOffset = 50;
+    private final int tileColorHeight = 30;
+    private final int boardWith = (9 * tileWidth) + (2 * tileHeight);
+
+    private final Tiles type;
 
     public TileRectangle(Tiles tile) {
         super(new Coordinate2D(0, 0));
         type = tile;
     }
 
-    private int getWidth(Orientation orientation) {
-        if(orientation == Orientation.LEFT || orientation == Orientation.RIGHT) {
-            return 110;
-        }
+    private int getCalculatedWidth() {
+        Orientation orientation = type.getOrientation();
         if(orientation == Orientation.UP || orientation == Orientation.DOWN) {
-            return 60;
+            return tileWidth;
         }
-        return 110;
+        return tileHeight;
     }
 
-    private int getHeight(Orientation orientation) {
+    private int getCalculatedHeight() {
+        Orientation orientation = type.getOrientation();
         if(orientation == Orientation.LEFT || orientation == Orientation.RIGHT) {
-            return 60;
+            return tileWidth;
         }
-        if(orientation == Orientation.UP || orientation == Orientation.DOWN) {
-            return 110;
-        }
-        return 110;
+        return tileHeight;
     }
 
-    private int getX(){
+    private int getCalculatedX(){
         if(type.getOrientation() == Orientation.RIGHT) {
-            return 50;
+            return sideOffset;
         }
         if(type.getOrientation() == Orientation.DOWN) {
-            return (50 + 110) + ((type.getPos() - 11) * 60);
+            return (sideOffset + tileHeight) + ((type.getPos() - 11) * tileWidth);
         }
         if(type.getOrientation() == Orientation.LEFT) {
-            return 50 + 110 + (9 * 60);
+            return sideOffset + tileHeight + (9 * tileWidth);
         }
         if(type.getOrientation() == Orientation.UP) {
-            return (50 + 110 + (9 * 60)) - (type.getPos() - 30) * 60;
+            return (sideOffset + tileHeight + (9 * tileWidth)) - (type.getPos() - tileColorHeight) * tileWidth;
+        }
+        if(type.getOrientation() == Orientation.CORNER) {
+            if(type.getPos() == 0 || type.getPos() == 10) {
+                return sideOffset;
+            } else {
+                return sideOffset + (boardWith - tileHeight);
+            }
         }
         return 0;
     }
 
-    private int getY(){
+    private int getCalculatedY(){
         if(type.getOrientation() == Orientation.DOWN) {
-            return 50;
+            return sideOffset;
         }
         if(type.getOrientation() == Orientation.LEFT) {
-            return 50 + 110 + (type.getPos() - 21) * 60;
+            return sideOffset + tileHeight + (type.getPos() - 21) * tileWidth;
         }
         if(type.getOrientation() == Orientation.RIGHT) {
-            return 810 - 110 - (type.getPos()) * 60;
+            return (boardWith + sideOffset) - tileHeight - (type.getPos()) * tileWidth;
         }
         if(type.getOrientation() == Orientation.UP) {
-            return 810 - 110;
+            return (boardWith + sideOffset) - tileHeight;
+        }
+        if(type.getOrientation() == Orientation.CORNER) {
+            if(type.getPos() == 20 || type.getPos() == 10) {
+                return sideOffset;
+            } else {
+                return sideOffset + (boardWith - tileHeight);
+            }
         }
         return 0;
     }
 
     @Override
     protected void setupEntities() {
-        RectangleEntity entity1 = new RectangleEntity(new Coordinate2D()) {};
-        entity1.setWidth(getWidth(type.getOrientation()));
-        entity1.setHeight(getHeight(type.getOrientation()));
 
-        entity1.setAnchorLocation(new Coordinate2D(getX(), getY()));
-        entity1.setFill(Color.BLACK);
+        int x = getCalculatedX();
+        int y = getCalculatedY();
+        int width = getCalculatedWidth();
+        int height = getCalculatedHeight();
+        Color color = Color.BLACK;
 
-        addEntity(entity1);
+        addEntity(new RectangleWrapper(new Coordinate2D(x, y), new Size(width, height), color));
 
-        RectangleEntity entity2 = new RectangleEntity(new Coordinate2D()) {};
-        entity2.setWidth(getWidth(type.getOrientation()) - 2);
-        entity2.setHeight(getHeight(type.getOrientation()) - 2);
 
-        entity2.setAnchorLocation(new Coordinate2D(getX(), getY()));
-        if(type.getOrientation() == Orientation.RIGHT || type.getOrientation() == Orientation.LEFT) {
-            entity1.setAnchorLocation(new Coordinate2D(getX() - 1, getY() - 1));
-        } else {
-            entity1.setAnchorLocation(new Coordinate2D(getX() - 1, getY() - 1));
+        int x2 = getCalculatedX() + 1;
+        int y2 = getCalculatedY() + 1;
+        int width2 = getCalculatedWidth() - 2;
+        int height2 = getCalculatedHeight() - 2;
+        Color color2 = Color.WHITE;
+
+        addEntity(new RectangleWrapper(new Coordinate2D(x2, y2), new Size(width2, height2), color2));
+
+
+        if(type.getWorth() != 0){
+            int x3 = getCalculatedX() + 1;
+            int y3 = getCalculatedY() + 1;
+            int width3 = 0;
+            int height3 = 0;
+            Color color3 = type.getColor().getColor();
+
+            if(type.getOrientation() == Orientation.LEFT || type.getOrientation() == Orientation.RIGHT) {
+                width3 = tileHeight - (tileHeight - tileColorHeight) - 1;
+                height3 = tileWidth - 2;
+
+                if(type.getOrientation() == Orientation.RIGHT){
+                    x3 += (tileHeight - tileColorHeight - 1);
+                }
+            } else {
+                width3 = tileWidth - 2;
+                height3 = tileHeight - (tileHeight - tileColorHeight) - 1;
+
+                if(type.getOrientation() == Orientation.DOWN){
+                    y3 += (tileHeight - tileColorHeight - 1);
+                }
+            }
+
+            addEntity(new RectangleWrapper(new Coordinate2D(x3, y3), new Size(width3, height3), color3));
         }
 
-        entity2.setFill(Color.WHITE);
-
-        addEntity(entity2);
-
-        RectangleEntity entity3 = new RectangleEntity(new Coordinate2D()) {};
-
-        if(type.getOrientation() == Orientation.RIGHT || type.getOrientation() == Orientation.LEFT) {
-            entity3.setWidth(110 - 80);
-            entity3.setHeight(60);
-
-            if(type.getOrientation() == Orientation.LEFT) {
-                entity3.setAnchorLocation(new Coordinate2D(getX() - 1, getY() - 1));
-            } else {
-                entity3.setAnchorLocation(new Coordinate2D(getX() - 1 + 80, getY() - 1));
-            }
-        } else {
-            entity3.setWidth(60);
-            entity3.setHeight(110 - 80);
-
-            if(type.getOrientation() == Orientation.UP) {
-                entity3.setAnchorLocation(new Coordinate2D(getX() - 1, getY() - 1));
-            } else {
-                entity3.setAnchorLocation(new Coordinate2D(getX() - 1, getY() - 1 + 80));
-            }
-        }
-
-        entity3.setFill(type.getColor().getColor());
-
-        addEntity(entity3);
     }
 
 }

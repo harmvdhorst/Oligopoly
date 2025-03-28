@@ -3,10 +3,10 @@ package nl.harmjaydee.oligopoly.tiles.enums;
 public enum Tiles {
 
     // corners
-    START(0, "Start", Orientation.CORNER, 1),
-    PAKEREN_1(10, "Pakeren", Orientation.CORNER, 1),
-    PAKEREN_2(20, "Pakeren", Orientation.CORNER, 1),
-    PAKEREN_3(30, "Pakeren", Orientation.CORNER, 1),
+    START(0, "Start", Orientation.CORNER, 1, true),
+    PAKEREN_1(10, "Pakeren", Orientation.CORNER, 1, true),
+    PAKEREN_2(20, "Pakeren", Orientation.CORNER, 1, true),
+    PAKEREN_3(30, "Pakeren", Orientation.CORNER, 1, true),
 
     // Kans kaarten
     KANS_1(2, "Kans", Orientation.RIGHT, 1),
@@ -71,13 +71,22 @@ public enum Tiles {
     private Color color;
     private final Orientation orientation;
     private final int rent;
-    private int worth;
+    private int worth = 0;
+    private boolean corner = false;
 
     Tiles(int pos, String name, Orientation orientation, int rent){
         this.pos = pos;
         this.name = name;
         this.orientation = orientation;
         this.rent = rent;
+    }
+
+    Tiles(int pos, String name, Orientation orientation, int rent, boolean corner){
+        this.pos = pos;
+        this.name = name;
+        this.orientation = orientation;
+        this.rent = rent;
+        this.corner = corner;
     }
 
     Tiles(int pos, String name, Color color, Orientation orientation, int worth, int rent) {
@@ -111,5 +120,9 @@ public enum Tiles {
 
     public Orientation getOrientation() {
         return orientation;
+    }
+
+    public boolean isCorner() {
+        return corner;
     }
 }
