@@ -1,6 +1,7 @@
 package nl.harmjaydee.oligopoly;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
@@ -15,7 +16,7 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener {
     private int currentPosition;
 
     public GamePlayer(int id, String resource, Coordinate2D location){
-        super(resource, location);
+        super(resource, location,new Size(20,40), 1, 2);
         this.id = id;
     }
     public void onPressedKeysChange(Set<KeyCode> pressedKeys){
