@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.scenes.DynamicScene;
 
 import java.util.Map;
 
-public class Game extends DynamicScene {
+public class Game {
 
     private Map<Integer, GamePlayer> players;
     private int turn = 0;
@@ -15,15 +15,6 @@ public class Game extends DynamicScene {
 
     public Game() {
 
-    }
-
-    @Override
-    public void setupScene() {
-    }
-
-    public void setupEntities() {
-        var player1 = new GamePlayer(1, "Sprites/dummy.png", new Coordinate2D(0, 0));
-        addEntity(player1);
     }
 
     public void nextTurn() {
