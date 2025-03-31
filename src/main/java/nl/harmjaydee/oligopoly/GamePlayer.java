@@ -5,11 +5,13 @@ import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 
 public class GamePlayer extends DynamicSpriteEntity {
 
+    private int id;
     private int balance;
     private int currentPosition;
 
-    protected GamePlayer(String resource, Coordinate2D initialLocation) {
+    protected GamePlayer(int id, String resource, Coordinate2D initialLocation) {
         super(resource, initialLocation);
+        this.id = id;
     }
 
     public void movePlaces(int amount, boolean foreward) {
@@ -20,9 +22,11 @@ public class GamePlayer extends DynamicSpriteEntity {
 
     }
 
-    public void withdrawMoney(int amount) {
-
+    public boolean withdrawMoney(int amount) {
+        return false;
     }
 
-
+    public int getId() {
+        return id;
+    }
 }
