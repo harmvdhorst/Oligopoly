@@ -19,7 +19,7 @@ public class Oligopoly extends YaegerGame {
 
     @Override
     public void setupScenes() {
-        addScene(0, new GameScreen());
+
     }
 
 }

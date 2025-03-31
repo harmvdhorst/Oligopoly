@@ -19,11 +19,10 @@ public class Game extends DynamicScene {
 
     @Override
     public void setupScene() {
-        setBackgroundImage("Background/dummy.png");
     }
 
     public void setupEntities() {
-        var player1 = new GamePlayer(new Coordinate2D(0, 0));
+        var player1 = new GamePlayer(1, "Sprites/dummy.png", new Coordinate2D(0, 0));
         addEntity(player1);
     }
 
