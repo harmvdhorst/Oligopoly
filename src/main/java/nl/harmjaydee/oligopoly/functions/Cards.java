@@ -6,18 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cards {
-    private List<Card> cardList;
+
+    private final List<Card> cardList;
+
     public Cards(String type) {
         this.cardList = new ArrayList<>();
     }
+
     private void CreateCards() {
-    // voeg kaarten toe
+      cardList.add(new Card("ga naar redlight district"));
     }
 
     public List<Card> getCards() {
         return new ArrayList<>(cardList);
     }
-    public void draw(Graphics g) {
 
-    }
 }

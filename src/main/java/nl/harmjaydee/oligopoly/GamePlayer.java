@@ -1,25 +1,32 @@
 package nl.harmjaydee.oligopoly;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
-import com.github.hanyaeger.api.userinput.KeyListener;
-import javafx.scene.input.KeyCode;
-
-import java.util.Set;
 
 
+public class GamePlayer extends DynamicSpriteEntity {
 
-public class GamePlayer extends DynamicSpriteEntity implements KeyListener {
+    private int id;
+    private int balance;
+    private int currentPosition;
+
+    protected GamePlayer(int id, String resource, Coordinate2D initialLocation) {
+        super(resource, initialLocation);
+        this.id = id;
+    }
+
 
     public void depositMoney(int amount) {
 
     }
 
-    public void withdrawMoney(int amount) {
-
+    public boolean withdrawMoney(int amount) {
+        return false;
     }
 
+    public int getId() {
+        return id;
+    }
 }
 
 

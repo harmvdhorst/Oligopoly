@@ -1,11 +1,14 @@
 package nl.harmjaydee.oligopoly.menu;
 
-import nl.harmjaydee.oligopoly.IDrawable;
+import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.entities.DynamicCompositeEntity;
 
-import java.awt.*;
+public abstract class Menu extends DynamicCompositeEntity {
 
-public abstract class Menu implements IDrawable {
+    protected Menu(Coordinate2D initialLocation) {
+        super(initialLocation);
+    }
 
-    public abstract void draw(Graphics g);
+    public abstract void setVisible(boolean visible);
 
 }
