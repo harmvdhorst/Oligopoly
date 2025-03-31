@@ -11,7 +11,6 @@ public class MainScreen extends StaticScene {
 
     @Override
     public void setupScene() {
-
     }
 
     @Override

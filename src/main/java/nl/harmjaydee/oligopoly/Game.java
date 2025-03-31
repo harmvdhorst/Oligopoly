@@ -1,8 +1,11 @@
 package nl.harmjaydee.oligopoly;
 
+import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.scenes.DynamicScene;
+
 import java.util.Map;
 
-public class Game {
+public class Game extends DynamicScene {
 
     private Map<Integer, GamePlayer> players;
     private int turn = 0;
@@ -14,6 +17,15 @@ public class Game {
 
     }
 
+    @Override
+    public void setupScene() {
+    }
+
+    public void setupEntities() {
+        var player1 = new GamePlayer(1, "Sprites/dummy.png", new Coordinate2D(0, 0));
+        addEntity(player1);
+    }
+
     public void nextTurn() {
 
     }
@@ -22,12 +34,11 @@ public class Game {
 
     }
 
-    public void gameLoop(){
+    public void gameLoop() {
 
     }
 
     public void endGame(GamePlayer winner) {
 
     }
-
 }

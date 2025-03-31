@@ -1,6 +1,8 @@
 package nl.harmjaydee.oligopoly;
 
 import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.YaegerGame;
 import nl.harmjaydee.oligopoly.screen.GameScreen;
 
