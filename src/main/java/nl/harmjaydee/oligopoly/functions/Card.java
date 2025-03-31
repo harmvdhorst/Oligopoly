@@ -2,7 +2,7 @@ package nl.harmjaydee.oligopoly.functions;
 
 
 public class Card {
-    private  String description;
+    private String description;
 
     public Card(String description) {
         this.description = description;
@@ -11,5 +11,5 @@ public class Card {
     public String getDescription() {
         return description;
     }
-}
+    }
 

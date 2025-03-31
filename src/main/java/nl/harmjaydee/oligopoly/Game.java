@@ -1,5 +1,8 @@
 package nl.harmjaydee.oligopoly;
 
+import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.scenes.DynamicScene;
+
 import java.util.Map;
 
 public class Game {
@@ -22,12 +25,11 @@ public class Game {
 
     }
 
-    public void gameLoop(){
+    public void gameLoop() {
 
     }
 
     public void endGame(GamePlayer winner) {
 
     }
-
 }

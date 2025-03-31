@@ -3,4 +3,6 @@ module Oligopoly {
     requires java.desktop;
 
     exports nl.harmjaydee.oligopoly;
+//    opens Background;
+    opens sprites;
 }
