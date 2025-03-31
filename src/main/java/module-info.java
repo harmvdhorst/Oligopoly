@@ -4,5 +4,5 @@ module Oligopoly {
 
     exports nl.harmjaydee.oligopoly;
 //    opens Background;
-    opens Sprites;
+    opens sprites;
 }
