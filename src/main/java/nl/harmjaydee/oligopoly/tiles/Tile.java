@@ -1,13 +1,13 @@
 package nl.harmjaydee.oligopoly.tiles;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.entities.Collider;
+import com.github.hanyaeger.api.entities.CompositeEntity;
 import com.github.hanyaeger.api.entities.DynamicCompositeEntity;
 import nl.harmjaydee.oligopoly.GamePlayer;
 import nl.harmjaydee.oligopoly.tiles.enums.Orientation;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
 
-public abstract class Tile extends DynamicCompositeEntity implements Collider {
+public abstract class Tile extends CompositeEntity {
 
     private final Tiles type;
     private final Orientation orientation;

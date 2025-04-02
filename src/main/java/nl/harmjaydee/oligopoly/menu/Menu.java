@@ -23,4 +23,5 @@ public abstract class Menu extends CompositeEntity {
     }
 
     public abstract void addEntities();
+
 }
