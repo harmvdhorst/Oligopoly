@@ -8,18 +8,22 @@ import nl.harmjaydee.oligopoly.screen.GameScreen;
 
 public class Oligopoly extends YaegerGame {
 
+    private Game game;
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void setupGame() {
-        setSize(new Size(850, 850));
+        setSize(new Size(860, 860));
+
+        game = new Game();
     }
 
     @Override
     public void setupScenes() {
-        addScene(0, new GameScreen());
+        addScene(0, new GameScreen(game));
     }
 
 }

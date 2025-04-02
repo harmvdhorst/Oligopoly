@@ -1,5 +1,6 @@
 package nl.harmjaydee.oligopoly.tiles;
 
+import nl.harmjaydee.oligopoly.Game;
 import nl.harmjaydee.oligopoly.GamePlayer;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
 import nl.harmjaydee.oligopoly.utils.TileRectangle;
@@ -9,14 +10,16 @@ import java.util.Map;
 
 public class PlayerTile extends Tile {
 
+    private final Game game;
     private final Map<Integer, Integer> stocks;
     private int owner = 0;
     private final Tiles type;
 
-    public PlayerTile(Tiles type) {
+    public PlayerTile(Game game, Tiles type) {
         super(type, type.getOrientation());
         this.type = type;
         this.stocks = new HashMap<>();
+        this.game = game;
     }
 
     @Override
@@ -28,14 +31,15 @@ public class PlayerTile extends Tile {
         this.owner = player.getId();
     }
 
-    public void buy(GamePlayer player) {
+    public boolean buy(GamePlayer player) {
         boolean success = player.withdrawMoney(type.getWorth());
         if(success) {
             this.changeOwner(player);
         }
+        return success;
     }
 
-    public void buyStock(GamePlayer player, int stocks) {
+    public boolean buyStock(GamePlayer player, int stocks) {
 
         // check what player has the most amount of stocks
         int mostStocks = 0;
@@ -63,7 +67,7 @@ public class PlayerTile extends Tile {
 
             // check if the maximum of 100 stocks is hit
             if((this.stocks.get(player.getId()) + stocks) > 100) {
-                return;
+                return false;
             }
 
             // add the stocks to the new owner and remove them from the old owner
@@ -80,12 +84,23 @@ public class PlayerTile extends Tile {
             this.changeOwner(player);
         }
 
+        return success;
+
     }
 
     @Override
     protected void setupEntities() {
         addEntity(new TileRectangle(this.getType()));
     }
+
+    public int getOwner() {
+        return this.owner;
+    }
+
+    public Map<Integer, Integer> getStocks() {
+        return stocks;
+    }
+
     public String toString() {
         return "PlayerTile{type=" + type + ", owner=" + owner + "}";
     }
