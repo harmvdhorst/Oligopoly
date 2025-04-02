@@ -25,5 +25,8 @@ public class SystemTile extends Tile {
     protected void setupEntities() {
         addEntity(new TileRectangle(type));
     }
-
+    public String toString() {
+        return "SystemTile{type=" + type + "}";
+    }
 }
+

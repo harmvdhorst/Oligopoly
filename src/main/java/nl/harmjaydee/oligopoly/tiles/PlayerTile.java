@@ -21,7 +21,7 @@ public class PlayerTile extends Tile {
 
     @Override
     public void use(GamePlayer player, String action) {
-        
+
     }
 
     public void changeOwner(GamePlayer player) {
@@ -86,5 +86,7 @@ public class PlayerTile extends Tile {
     protected void setupEntities() {
         addEntity(new TileRectangle(this.getType()));
     }
-
+    public String toString() {
+        return "PlayerTile{type=" + type + ", owner=" + owner + "}";
+    }
 }
