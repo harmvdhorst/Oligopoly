@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class InfoMenu extends Menu {
 
-    private List<Tile> tiles;
+    private final List<Tile> tiles;
 
     protected InfoMenu(GamePlayer player, GameScreen screen) {
         super(screen);
