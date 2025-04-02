@@ -3,6 +3,7 @@ package nl.harmjaydee.oligopoly.screen;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.entities.impl.CustomFont;
 import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import javafx.scene.paint.Color;
@@ -11,6 +12,7 @@ import nl.harmjaydee.oligopoly.GamePlayer;
 import nl.harmjaydee.oligopoly.tiles.PlayerTile;
 import nl.harmjaydee.oligopoly.tiles.SystemTile;
 import nl.harmjaydee.oligopoly.tiles.Tile;
+import nl.harmjaydee.oligopoly.tiles.enums.Orientation;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
 import nl.harmjaydee.oligopoly.utils.RectangleWrapper;
 

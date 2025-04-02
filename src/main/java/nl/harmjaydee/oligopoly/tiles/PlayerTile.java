@@ -13,6 +13,7 @@ import java.util.Map;
 public class PlayerTile extends Tile implements Collider {
 
     private final Map<Integer, Integer> stocks;
+    private int owner = 0;
     private final Tiles type;
     private int owner = 0;
 
@@ -94,4 +95,3 @@ public class PlayerTile extends Tile implements Collider {
         return "PlayerTile{type=" + type + ", owner=" + owner + "}";
     }
 }
-
