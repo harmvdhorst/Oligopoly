@@ -1,17 +1,20 @@
 package nl.harmjaydee.oligopoly.tiles;
 
+import com.github.hanyaeger.api.entities.Collided;
+import com.github.hanyaeger.api.entities.Collider;
 import nl.harmjaydee.oligopoly.GamePlayer;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
 import nl.harmjaydee.oligopoly.utils.TileRectangle;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class PlayerTile extends Tile {
+public class PlayerTile extends Tile implements Collider {
 
     private final Map<Integer, Integer> stocks;
-    private int owner = 0;
     private final Tiles type;
+    private int owner = 0;
 
     public PlayerTile(Tiles type) {
         super(type, type.getOrientation());
@@ -21,7 +24,7 @@ public class PlayerTile extends Tile {
 
     @Override
     public void use(GamePlayer player, String action) {
-        
+
     }
 
     public void changeOwner(GamePlayer player) {
@@ -30,7 +33,7 @@ public class PlayerTile extends Tile {
 
     public void buy(GamePlayer player) {
         boolean success = player.withdrawMoney(type.getWorth());
-        if(success) {
+        if (success) {
             this.changeOwner(player);
         }
     }
@@ -45,8 +48,8 @@ public class PlayerTile extends Tile {
             int playerId = entry.getKey();
             int playerStocks = entry.getValue();
 
-            if(playerId != player.getId()) {
-                if(playerStocks > mostStocks) {
+            if (playerId != player.getId()) {
+                if (playerStocks > mostStocks) {
                     mostStocks = playerId;
                     stockAmount = playerStocks;
                 }
@@ -57,12 +60,12 @@ public class PlayerTile extends Tile {
         int price = (type.getWorth() / 100) * stocks;
         boolean success = player.withdrawMoney(price);
 
-        if(success) {
+        if (success) {
             // add the player if they dont have any stocks
             this.stocks.putIfAbsent(player.getId(), 0);
 
             // check if the maximum of 100 stocks is hit
-            if((this.stocks.get(player.getId()) + stocks) > 100) {
+            if ((this.stocks.get(player.getId()) + stocks) > 100) {
                 return;
             }
 
@@ -76,7 +79,7 @@ public class PlayerTile extends Tile {
         }
 
         // if the new owner owns all stocks transfer ownership
-        if(this.stocks.get(player.getId()) == 100) {
+        if (this.stocks.get(player.getId()) == 100) {
             this.changeOwner(player);
         }
 
@@ -87,4 +90,8 @@ public class PlayerTile extends Tile {
         addEntity(new TileRectangle(this.getType()));
     }
 
+    public String toString() {
+        return "PlayerTile{type=" + type + ", owner=" + owner + "}";
+    }
 }
+

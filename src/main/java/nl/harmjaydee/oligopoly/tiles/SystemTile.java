@@ -1,5 +1,6 @@
 package nl.harmjaydee.oligopoly.tiles;
 
+import com.github.hanyaeger.api.entities.Collider;
 import nl.harmjaydee.oligopoly.GamePlayer;
 import nl.harmjaydee.oligopoly.tiles.enums.Orientation;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
@@ -7,7 +8,7 @@ import nl.harmjaydee.oligopoly.utils.TileRectangle;
 
 import java.awt.*;
 
-public class SystemTile extends Tile {
+public class SystemTile extends Tile implements Collider {
 
     private Tiles type;
 
@@ -26,4 +27,7 @@ public class SystemTile extends Tile {
         addEntity(new TileRectangle(type));
     }
 
+    public String toString() {
+        return "SystemTile{type=" + type + "}";
+    }
 }
