@@ -44,7 +44,7 @@ public class GameScreen extends DynamicScene {
             if(tile.getWorth() == 0){
                 addTile(new SystemTile(tile));
             } else {
-                addTile(new PlayerTile(tile));
+                addTile(new PlayerTile(game, tile));
             }
         }
         addEntity(new RectangleWrapper(new Coordinate2D(50 + 110 + 1, 50 + 110 + 1), new Size(540 - 2, 540 - 2), Color.WHITE));
@@ -58,7 +58,7 @@ public class GameScreen extends DynamicScene {
 
         System.out.println("Loaded " + tiles.size() + " tiles");
 
-        PlayerTile tile = new PlayerTile(Tiles.RED_LIGHT_DISTRICT);
+        PlayerTile tile = new PlayerTile(game, Tiles.RED_LIGHT_DISTRICT);
         tile.getStocks().put(0, 20);
         tile.getStocks().put(1, 30);
         tile.getStocks().put(2, 25);

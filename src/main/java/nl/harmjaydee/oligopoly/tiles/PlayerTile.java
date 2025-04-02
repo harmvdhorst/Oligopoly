@@ -1,5 +1,6 @@
 package nl.harmjaydee.oligopoly.tiles;
 
+import nl.harmjaydee.oligopoly.Game;
 import nl.harmjaydee.oligopoly.GamePlayer;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
 import nl.harmjaydee.oligopoly.utils.TileRectangle;
@@ -9,14 +10,16 @@ import java.util.Map;
 
 public class PlayerTile extends Tile {
 
+    private final Game game;
     private final Map<Integer, Integer> stocks;
     private int owner = 0;
     private final Tiles type;
 
-    public PlayerTile(Tiles type) {
+    public PlayerTile(Game game, Tiles type) {
         super(type, type.getOrientation());
         this.type = type;
         this.stocks = new HashMap<>();
+        this.game = game;
     }
 
     @Override

@@ -31,7 +31,7 @@ public class InfoMenu extends Menu {
         for (Tile t : tiles) {
             PlayerTile tile = (PlayerTile) t;
 
-            TileDisplay display = new TileDisplay(new Coordinate2D(), new Size(), tile);
+            TileDisplay display = new TileDisplay(new Coordinate2D(), new Size(0,0), tile);
             addEntity(display);
         }
     }
