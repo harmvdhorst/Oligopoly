@@ -21,7 +21,7 @@ public class PlayerTile extends Tile {
 
     @Override
     public void use(GamePlayer player, String action) {
-        
+
     }
 
     public void changeOwner(GamePlayer player) {
@@ -98,4 +98,7 @@ public class PlayerTile extends Tile {
         return stocks;
     }
 
+    public String toString() {
+        return "PlayerTile{type=" + type + ", owner=" + owner + "}";
+    }
 }
