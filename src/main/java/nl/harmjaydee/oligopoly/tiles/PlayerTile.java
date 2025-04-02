@@ -101,7 +101,4 @@ public class PlayerTile extends Tile {
         return stocks;
     }
 
-    public String toString() {
-        return "PlayerTile{type=" + type + ", owner=" + owner + "}";
-    }
 }
