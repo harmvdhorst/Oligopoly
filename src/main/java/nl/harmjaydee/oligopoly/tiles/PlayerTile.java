@@ -32,14 +32,15 @@ public class PlayerTile extends Tile implements Collider {
         this.owner = player.getId();
     }
 
-    public void buy(GamePlayer player) {
+    public boolean buy(GamePlayer player) {
         boolean success = player.withdrawMoney(type.getWorth());
         if (success) {
             this.changeOwner(player);
         }
+        return success;
     }
 
-    public void buyStock(GamePlayer player, int stocks) {
+    public boolean buyStock(GamePlayer player, int stocks) {
 
         // check what player has the most amount of stocks
         int mostStocks = 0;
@@ -49,8 +50,8 @@ public class PlayerTile extends Tile implements Collider {
             int playerId = entry.getKey();
             int playerStocks = entry.getValue();
 
-            if (playerId != player.getId()) {
-                if (playerStocks > mostStocks) {
+            if(playerId != player.getId()) {
+                if(playerStocks > mostStocks) {
                     mostStocks = playerId;
                     stockAmount = playerStocks;
                 }
@@ -68,6 +69,8 @@ public class PlayerTile extends Tile implements Collider {
             // check if the maximum of 100 stocks is hit
             if ((this.stocks.get(player.getId()) + stocks) > 100) {
                 return;
+            if((this.stocks.get(player.getId()) + stocks) > 100) {
+                return false;
             }
 
             // add the stocks to the new owner and remove them from the old owner
@@ -84,11 +87,22 @@ public class PlayerTile extends Tile implements Collider {
             this.changeOwner(player);
         }
 
+        return success;
+
     }
 
     @Override
     protected void setupEntities() {
         addEntity(new TileRectangle(this.getType()));
+    }
+
+
+    public int getOwner() {
+        return this.owner;
+    }
+
+    public Map<Integer, Integer> getStocks() {
+        return stocks;
     }
 
     public String toString() {

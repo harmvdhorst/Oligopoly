@@ -47,10 +47,15 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
         }
 
     public void depositMoney(int amount) {
+        balance += amount;
     }
 
     public boolean withdrawMoney(int amount) {
-        return false;
+        if(amount > balance){
+            return false;
+        }
+        balance -= amount;
+        return true;
     }
 
     public int getId() {
