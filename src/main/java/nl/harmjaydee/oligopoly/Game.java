@@ -18,7 +18,10 @@ public class Game {
     }
 
     public void nextTurn() {
-
+        this.turn++;
+        if(turn > players.size()) {
+            turn = 0;
+        }
     }
 
     public void startGame(int players) {
