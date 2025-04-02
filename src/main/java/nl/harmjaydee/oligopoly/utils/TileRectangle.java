@@ -1,10 +1,13 @@
 package nl.harmjaydee.oligopoly.utils;
 
+import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.CompositeEntity;
 import com.github.hanyaeger.api.entities.impl.RectangleEntity;
+import com.github.hanyaeger.api.entities.impl.TextEntity;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import nl.harmjaydee.oligopoly.tiles.enums.Orientation;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
 
@@ -131,6 +134,14 @@ public class TileRectangle extends CompositeEntity {
 
             addEntity(new RectangleWrapper(new Coordinate2D(x3, y3), new Size(width3, height3), color3));
         }
+
+        int x4 = getCalculatedX() + (getCalculatedWidth() / 2);
+        int y4 = getCalculatedY() + (getCalculatedHeight() / 2);
+
+        TextEntity text = new TextEntity(new Coordinate2D(x4, y4), type.getName());
+        text.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        text.setFont(Font.font("Roboto", 6));
+        addEntity(text);
 
     }
 
