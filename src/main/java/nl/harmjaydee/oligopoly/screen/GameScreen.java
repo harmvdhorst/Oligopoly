@@ -36,9 +36,6 @@ public class GameScreen extends DynamicScene {
         this.game = game;
     }
 
-    public GameScreen(Game game) {
-        this.game = game;
-    }
 
     @Override
     public void setupScene() {
