@@ -128,7 +128,7 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
 
     public void addGoal(int amount) {
         this.tileToGo = currentPosition + amount;
-        if(tileToGo > 40){
+        if(tileToGo >= 40){
             tileToGo -= 40;
         }
         isAllowedToMove = true;
