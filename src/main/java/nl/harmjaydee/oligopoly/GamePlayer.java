@@ -31,20 +31,20 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
 
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
 
-        if (pressedKeys.contains(KeyCode.LEFT)) {
-            setMotion(3, 270d);
-            setCurrentFrameIndex(0);
-        } else if (pressedKeys.contains(KeyCode.RIGHT)) {
-            setMotion(3, 90d);
-            setCurrentFrameIndex(1);
-        } else if (pressedKeys.contains(KeyCode.UP)) {
-            setMotion(3, 180d);
-        } else if (pressedKeys.contains(KeyCode.DOWN)) {
-            setMotion(3, 0d);
-        } else if (pressedKeys.isEmpty()) {
-            setSpeed(0);
+            if (pressedKeys.contains(KeyCode.LEFT)) {
+                setMotion(3, 270d);
+                setCurrentFrameIndex(0);
+            } else if (pressedKeys.contains(KeyCode.RIGHT)) {
+                setMotion(3, 90d);
+                setCurrentFrameIndex(1);
+            } else if (pressedKeys.contains(KeyCode.UP)) {
+                setMotion(3, 180d);
+            } else if (pressedKeys.contains(KeyCode.DOWN)) {
+                setMotion(3, 0d);
+            } else if (pressedKeys.isEmpty()) {
+                setSpeed(0);
+            }
         }
-    }
 
     public void depositMoney(int amount) {
         balance += amount;
@@ -64,7 +64,7 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
 
     public void onCollision(List<Collider> collidingEntities) {
 
-        System.out.println("Collision detected with entities: " + collidingEntities);
+            System.out.println("Collision detected with entities: " + collidingEntities);
 
     }
 
@@ -75,7 +75,7 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
         double playerX = getAnchorLocation().getX();
         double playerY = getAnchorLocation().getY();
         if(playerY <= 702 && playerY >= 700 && playerX >= 140 && playerX <= 700 || playerY <= 50) {
-            setAnchorLocationY(playerY + 3);
+           setAnchorLocationY(playerY + 3);
         } else if (playerY >= 780) {
             setAnchorLocationY(playerY - 3);
         }else if(playerY <= 132 && playerY >= 130 && playerX >= 140 && playerX <= 700) {

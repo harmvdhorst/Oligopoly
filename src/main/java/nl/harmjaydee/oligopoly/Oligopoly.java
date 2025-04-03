@@ -5,6 +5,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.YaegerGame;
 import nl.harmjaydee.oligopoly.screen.GameScreen;
+import nl.harmjaydee.oligopoly.screen.MainScreen;
 
 public class Oligopoly extends YaegerGame {
 
@@ -23,7 +24,7 @@ public class Oligopoly extends YaegerGame {
 
     @Override
     public void setupScenes() {
-        addScene(0, new GameScreen(game));
+        addScene(0, new MainScreen(this));
+        addScene(1, new GameScreen(game));
     }
-
 }

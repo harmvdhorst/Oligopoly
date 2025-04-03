@@ -1,5 +1,6 @@
 package nl.harmjaydee.oligopoly.tiles;
 
+import com.github.hanyaeger.api.entities.Collider;
 import nl.harmjaydee.oligopoly.Game;
 import nl.harmjaydee.oligopoly.GamePlayer;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
@@ -8,9 +9,8 @@ import nl.harmjaydee.oligopoly.utils.TileRectangle;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PlayerTile extends Tile {
+public class PlayerTile extends Tile implements Collider {
 
-    private final Game game;
     private final Map<Integer, Integer> stocks;
     private int owner = 0;
     private final Tiles type;
@@ -19,7 +19,6 @@ public class PlayerTile extends Tile {
         super(type, type.getOrientation());
         this.type = type;
         this.stocks = new HashMap<>();
-        this.game = game;
     }
 
     @Override
@@ -33,7 +32,7 @@ public class PlayerTile extends Tile {
 
     public boolean buy(GamePlayer player) {
         boolean success = player.withdrawMoney(type.getWorth());
-        if(success) {
+        if (success) {
             this.changeOwner(player);
         }
         return success;
@@ -61,7 +60,7 @@ public class PlayerTile extends Tile {
         int price = (type.getWorth() / 100) * stocks;
         boolean success = player.withdrawMoney(price);
 
-        if(success) {
+        if (success) {
             // add the player if they dont have any stocks
             this.stocks.putIfAbsent(player.getId(), 0);
 
@@ -80,7 +79,7 @@ public class PlayerTile extends Tile {
         }
 
         // if the new owner owns all stocks transfer ownership
-        if(this.stocks.get(player.getId()) == 100) {
+        if (this.stocks.get(player.getId()) == 100) {
             this.changeOwner(player);
         }
 
@@ -92,6 +91,7 @@ public class PlayerTile extends Tile {
     protected void setupEntities() {
         addEntity(new TileRectangle(this.getType()));
     }
+
 
     public int getOwner() {
         return this.owner;
