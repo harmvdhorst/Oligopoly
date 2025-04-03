@@ -2,7 +2,6 @@ package nl.harmjaydee.oligopoly.tiles;
 
 import nl.harmjaydee.oligopoly.Game;
 import nl.harmjaydee.oligopoly.GamePlayer;
-import nl.harmjaydee.oligopoly.menu.BuyMenu;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
 import nl.harmjaydee.oligopoly.utils.TileRectangle;
 

@@ -50,7 +50,7 @@ public class GameScreen extends DynamicScene {
         }
         addEntity(new RectangleWrapper(new Coordinate2D(50 + 110 + 1, 50 + 110 + 1), new Size(540 - 2, 540 - 2), Color.WHITE));
 
-        //addEntity(new GamePlayer(1, "sprites/dummy.png", new Coordinate2D(53, 718)));
+        addEntity(new GamePlayer(1, "sprites/dummy.png", new Coordinate2D(53, 718)));
       
         TextEntity text = new TextEntity(new Coordinate2D(getWidth() / 2, getHeight() / 2), "Oligopoly");
         text.setFont(Font.font("Roboto", 30));
