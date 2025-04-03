@@ -10,10 +10,12 @@ import nl.harmjaydee.oligopoly.utils.RectangleWrapper;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Consumer;
 
 public class DobbelMenu extends DynamicCompositeEntity implements TimerContainer {
 
     private DobbelMenu dobbelMenu;
+    private Consumer<Integer> callback;
 
     private final ThreadLocalRandom random = ThreadLocalRandom.current();
 
@@ -24,10 +26,11 @@ public class DobbelMenu extends DynamicCompositeEntity implements TimerContainer
 
     private int thrown = 0;
 
-    public DobbelMenu(GameScreen screen) {
+    public DobbelMenu(GameScreen screen, Consumer<Integer> callback) {
         super(new Coordinate2D(0, 0));
         this.screen = screen;
         this.dobbelMenu = this;
+        this.callback = callback;
     }
 
     @Override
@@ -48,7 +51,8 @@ public class DobbelMenu extends DynamicCompositeEntity implements TimerContainer
             public void onAnimationUpdate(long l) {
                 if(rotations >= 40){
                     screen.getDobbelButton().setVisible(false);
-                    screen.getGame().setLastThrown(thrown);
+                    //screen.getGame().setLastThrown(thrown);
+                    callback.accept(thrown);
                     dobbelMenu.remove();
                     remove();
                 } else {

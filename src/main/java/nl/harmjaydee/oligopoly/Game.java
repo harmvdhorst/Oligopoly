@@ -1,7 +1,6 @@
 package nl.harmjaydee.oligopoly;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.scenes.DynamicScene;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +13,6 @@ public class Game {
 
     private int bankBalance = 0;
 
-    private String state;
     private int lastThrown = 0;
 
     public Game() {
@@ -24,14 +22,14 @@ public class Game {
     public void nextTurn() {
         lastThrown = 0;
         this.turn++;
-        if(turn > players.size()) {
+        if(turn == players.size()) {
             turn = 0;
         }
     }
 
     public void startGame(int players) {
         for (int i = 0; i < players; i++) {
-            this.players.put(i, new GamePlayer(this,i, "", new Coordinate2D()));
+            this.players.put(i, new GamePlayer(this,i, "sprites/player" + i + ".png", new Coordinate2D(80, 710)));
         }
     }
 

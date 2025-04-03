@@ -46,7 +46,7 @@ public class TileDisplay extends CompositeEntity {
         TextEntity text3 = new TextEntity(new Coordinate2D(textX, 0), "Huur: " + tile.getType().getRent());
         textEntities.add(text3);
 
-        TextEntity text4 = new TextEntity(new Coordinate2D(textX, 0), "Eigenaar: Speler " + tile.getOwner());
+        TextEntity text4 = new TextEntity(new Coordinate2D(textX, 0), "Eigenaar: " + (tile.getOwner() == -1 ? "Niemand" : "Speler " + tile.getOwner()));
         textEntities.add(text4);
 
         TextEntity text5 = new TextEntity(new Coordinate2D(textX, 0), "Aandelen: ");

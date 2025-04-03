@@ -18,7 +18,7 @@ public abstract class Tile extends CompositeEntity {
         this.orientation = orientation;
     }
 
-    public abstract void use(GamePlayer player, String action);
+    public abstract void use(GamePlayer player);
 
     public Tiles getType() {
         return type;
