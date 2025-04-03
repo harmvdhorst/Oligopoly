@@ -13,22 +13,23 @@ import nl.harmjaydee.oligopoly.Oligopoly;
 import nl.harmjaydee.oligopoly.utils.Button;
 
 public class MainScreen extends DynamicScene {
+
     private final Oligopoly oligopoly;
     private final int maxPlayers = 4;
     private final int minPlayers = 2;
 
     private int selectedPlayers = 2;
     private int marginBottom = 100;
-
+  
     private TextEntity text;
 
     public MainScreen(Oligopoly oligopoly) {
         this.oligopoly = oligopoly;
     }
-
+  
     @Override
     public void setupScene() {
-
+      
     }
 
     @Override
@@ -69,8 +70,6 @@ public class MainScreen extends DynamicScene {
 
         startbutton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(startbutton);
-
-
 
     }
 }

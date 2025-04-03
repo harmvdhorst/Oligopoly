@@ -36,6 +36,10 @@ public class GameScreen extends DynamicScene {
         this.game = game;
     }
 
+    public GameScreen(Game game) {
+        this.game = game;
+    }
+
     @Override
     public void setupScene() {
 
@@ -52,7 +56,6 @@ public class GameScreen extends DynamicScene {
             }
         }
         addEntity(new RectangleWrapper(new Coordinate2D(50 + 110 + 1, 50 + 110 + 1), new Size(540 - 2, 540 - 2), Color.WHITE));
-        addEntity(new GamePlayer(1, "sprites/dummy.png", new Coordinate2D(53, 718)));
 
         TextEntity text = new TextEntity(new Coordinate2D(getWidth() / 2, getHeight() / 2), "Oligopoly");
         text.setFont(Font.font("Roboto", 30));
@@ -72,6 +75,13 @@ public class GameScreen extends DynamicScene {
             InfoMenu infoMenu = new InfoMenu(game.getCurrentPlayer(), this);
             addEntity(infoMenu);
         });
+
+        Button button2 = new Button(new Coordinate2D(getWidth() / 2 + 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Dobbelen", () -> {
+            // TODO dobbelen
+        });
+
+        addEntity(button);
+        addEntity(button2);
 
         dobbelButton = new Button(new Coordinate2D(getWidth() / 2 + 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Dobbelen", () -> {
             // TODO dobbelen

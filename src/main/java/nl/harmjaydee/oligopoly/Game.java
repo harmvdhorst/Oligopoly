@@ -14,6 +14,7 @@ public class Game {
 
     private int bankBalance = 0;
 
+    private String state;
     private int lastThrown = 0;
 
     public Game() {
@@ -30,7 +31,7 @@ public class Game {
 
     public void startGame(int players) {
         for (int i = 0; i < players; i++) {
-            this.players.put(i, new GamePlayer(i, "", new Coordinate2D()));
+            this.players.put(i, new GamePlayer(this,i, "", new Coordinate2D()));
         }
     }
 
@@ -65,4 +66,30 @@ public class Game {
     public void setLastThrown(int lastThrown) {
         this.lastThrown = lastThrown;
     }
+
+    public void removeBankBalance(int amount) {
+        bankBalance -= amount;
+    }
+
+    public void addBankBalance(int amount) {
+        bankBalance += amount;
+    }
+
+    public int getBankBalance() {
+        return bankBalance;
+    }
+
+    public GamePlayer getPlayer(int playerId) {
+        return this.players.get(playerId);
+    }
+
+    public GamePlayer getCurrentPlayer() {
+        return this.players.get(this.turn);
+
+    }
+
+    public Map<Integer, GamePlayer> getPlayers() {
+        return players;
+    }
+
 }
