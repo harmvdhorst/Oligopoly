@@ -14,13 +14,14 @@ public class Game {
 
     private int bankBalance = 0;
 
-    private String state;
+    private int lastThrown = 0;
 
     public Game() {
 
     }
 
     public void nextTurn() {
+        lastThrown = 0;
         this.turn++;
         if(turn > players.size()) {
             turn = 0;
@@ -31,10 +32,6 @@ public class Game {
         for (int i = 0; i < players; i++) {
             this.players.put(i, new GamePlayer(i, "", new Coordinate2D()));
         }
-    }
-
-    public void gameLoop() {
-
     }
 
     public void endGame(GamePlayer winner) {
@@ -65,4 +62,7 @@ public class Game {
         return players;
     }
 
+    public void setLastThrown(int lastThrown) {
+        this.lastThrown = lastThrown;
+    }
 }

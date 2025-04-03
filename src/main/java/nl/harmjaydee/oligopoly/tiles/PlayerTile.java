@@ -14,11 +14,13 @@ public class PlayerTile extends Tile implements Collider {
     private final Map<Integer, Integer> stocks;
     private int owner = 0;
     private final Tiles type;
+    private final Game game;
 
     public PlayerTile(Game game, Tiles type) {
         super(type, type.getOrientation());
         this.type = type;
         this.stocks = new HashMap<>();
+        this.game = game;
     }
 
     @Override
