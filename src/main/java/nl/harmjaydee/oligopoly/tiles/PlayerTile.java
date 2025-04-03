@@ -3,6 +3,8 @@ package nl.harmjaydee.oligopoly.tiles;
 import com.github.hanyaeger.api.entities.Collider;
 import nl.harmjaydee.oligopoly.Game;
 import nl.harmjaydee.oligopoly.GamePlayer;
+import nl.harmjaydee.oligopoly.menu.BuyMenu;
+import nl.harmjaydee.oligopoly.screen.GameScreen;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
 import nl.harmjaydee.oligopoly.utils.TileRectangle;
 
@@ -12,24 +14,23 @@ import java.util.Map;
 public class PlayerTile extends Tile implements Collider {
 
     private final Map<Integer, Integer> stocks;
-    private int owner = 0;
+    private int owner = -1;
     private final Tiles type;
     private final Game game;
+    private final GameScreen screen;
 
-    public PlayerTile(Game game, Tiles type) {
+    public PlayerTile(GameScreen screen, Tiles type) {
         super(type, type.getOrientation());
         this.type = type;
         this.stocks = new HashMap<>();
-        this.game = game;
+        this.game = screen.getGame();
+        this.screen = screen;
     }
 
     @Override
-    public void use(GamePlayer player, String action) {
-        switch (action) {
-            case "buy":
-                break;
-        }
-
+    public void use(GamePlayer player) {
+        BuyMenu menu = new BuyMenu(screen, this, player, (this.owner == -1));
+        screen.addEntityBypass(menu);
     }
 
     public void changeOwner(GamePlayer player) {
@@ -55,6 +56,7 @@ public class PlayerTile extends Tile implements Collider {
         boolean success = player.withdrawMoney(type.getWorth());
         if (success) {
             this.changeOwner(player);
+            this.stocks.put(player.getId(), 100);
         }
         return success;
     }
@@ -77,7 +79,14 @@ public class PlayerTile extends Tile implements Collider {
             }
         }
 
+        if (stockAmount < stocks) {
+            screen.endTurn();
+            return false;
+        }
+
         // check if the maximum of 100 stocks is hit
+        this.stocks.putIfAbsent(player.getId(), 0);
+
         if((this.stocks.get(player.getId()) + stocks) > 100) {
             return false;
         }
@@ -87,8 +96,6 @@ public class PlayerTile extends Tile implements Collider {
         boolean success = player.withdrawMoney(price);
 
         if (success) {
-            // add the player if they dont have any stocks
-            this.stocks.putIfAbsent(player.getId(), 0);
 
             // add the stocks to the new owner and remove them from the old owner
             this.stocks.compute(player.getId(), (k, oldStocks) -> oldStocks + stocks);

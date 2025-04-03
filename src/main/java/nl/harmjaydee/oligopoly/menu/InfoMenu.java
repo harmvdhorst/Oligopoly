@@ -8,7 +8,6 @@ import nl.harmjaydee.oligopoly.tiles.PlayerTile;
 import nl.harmjaydee.oligopoly.tiles.Tile;
 import nl.harmjaydee.oligopoly.utils.TileDisplay;
 
-import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +29,7 @@ public class InfoMenu extends Menu {
     public void addEntities() {
         for (Tile t : tiles) {
             PlayerTile tile = (PlayerTile) t;
-
+            System.out.println(tile.getType().getName());
             TileDisplay display = new TileDisplay(new Coordinate2D(), new Size(0,0), tile);
             addEntity(display);
         }

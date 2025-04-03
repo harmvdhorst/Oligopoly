@@ -16,22 +16,33 @@ import nl.harmjaydee.oligopoly.tiles.Tile;
 
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 
 public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Collider, Collided, UpdateExposer {
     private final Game game;
     private int id;
-    private int balance;
-    private int currentPosition;
+    private int balance = Integer.MAX_VALUE;
+
+    private int currentPosition = 0;
+    private boolean isOnRightTile = false;
+    private int tileToGo = 1;
+
+    private boolean isAllowedToMove = false;
+
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     public GamePlayer(Game game, int id, String resource, Coordinate2D location) {
-        super(resource, location, new Size(20, 40), 1, 2);
+        super(resource, location, new Size(40, 40));
         this.id = id;
         this.game = game;
     }
 
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
-        if (game.getCurrentPlayer() == this) {
+        if (game.getCurrentPlayer() == this && isAllowedToMove) {
             if (pressedKeys.contains(KeyCode.LEFT)) {
                 setMotion(3, 270d);
                 setCurrentFrameIndex(0);
@@ -66,7 +77,25 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
 
     public void onCollision(List<Collider> collidingEntities) {
 
-//            System.out.println("Collision detected with entities: " + collidingEntities);
+        if(game.getCurrentPlayer() == this){
+
+            List<Collider> newColliders = collidingEntities.stream().filter(c -> c instanceof Tile).toList();
+
+            if(!isOnRightTile) {
+                if(!newColliders.isEmpty()) {
+                    Tile tile = (Tile) newColliders.getFirst();
+                    if(tile.getType().getPos() == tileToGo){
+                        isOnRightTile = true;
+                        scheduler.schedule(() -> {
+                            isAllowedToMove = false;
+                            setMotion(0, 0);
+                            currentPosition = tileToGo;
+                            tile.use(this);
+                        }, 147, TimeUnit.MILLISECONDS);
+                    }
+                }
+            }
+        }
 
     }
 
@@ -91,5 +120,17 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
         else if (playerX <= 51 || playerX >= 700 && playerX <= 702 && playerY >= 130 && playerY <= 700) {
             setAnchorLocationX(playerX + 3); // Move right
         }
+    }
+
+    public void setOnRightTile(boolean onRightTile) {
+        isOnRightTile = onRightTile;
+    }
+
+    public void addGoal(int amount) {
+        this.tileToGo = currentPosition + amount;
+        if(tileToGo > 40){
+            tileToGo -= 40;
+        }
+        isAllowedToMove = true;
     }
 }

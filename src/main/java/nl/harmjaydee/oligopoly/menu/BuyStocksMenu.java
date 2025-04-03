@@ -42,7 +42,7 @@ public class BuyStocksMenu extends Menu {
 
         addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 + 200, screen.getHeight() / 2), new Size(100, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Kopen", () -> {
             if(tile.buyStock(player, stocks)){
-                game.nextTurn();
+                screen.endTurn();
                 remove();
             } else {
                 // error
@@ -50,7 +50,7 @@ public class BuyStocksMenu extends Menu {
         }));
 
         addEntity(new Button(new Coordinate2D(screen.getWidth() / 2, screen.getHeight() - 200), new Size(200, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Beurt beeindigen", () -> {
-            game.nextTurn();
+            screen.endTurn();
             remove();
         }));
     }

@@ -4,9 +4,9 @@ public enum Tiles {
 
     // corners
     START(0, "Start", Orientation.CORNER, 1, true),
-    PAKEREN_1(10, "Pakeren", Orientation.CORNER, 1, true),
-    PAKEREN_2(20, "Pakeren", Orientation.CORNER, 1, true),
-    PAKEREN_3(30, "Pakeren", Orientation.CORNER, 1, true),
+    PARKEREN_1(10, "Pakeren", Orientation.CORNER, 1, true),
+    PARKEREN_2(20, "Pakeren", Orientation.CORNER, 1, true),
+    PARKEREN_3(30, "Pakeren", Orientation.CORNER, 1, true),
 
     // Kans kaarten
     KANS_1(2, "Kans", Orientation.RIGHT, 1),
