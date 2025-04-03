@@ -12,6 +12,7 @@ import nl.harmjaydee.oligopoly.screen.GameScreen;
 import nl.harmjaydee.oligopoly.tiles.PlayerTile;
 import nl.harmjaydee.oligopoly.tiles.Tile;
 import nl.harmjaydee.oligopoly.utils.Button;
+import nl.harmjaydee.oligopoly.utils.TextInput;
 import nl.harmjaydee.oligopoly.utils.TileDisplay;
 
 public class BuyStocksMenu extends Menu {
@@ -39,6 +40,8 @@ public class BuyStocksMenu extends Menu {
         bedrag.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         bedrag.setFont(Font.font("Roboto", 20));
         addEntity(bedrag);
+
+        addEntity(new TextInput(new Coordinate2D(screen.getWidth() / 2 - 200, screen.getHeight() / 2), new Size(100, 40)));
 
         addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 + 200, screen.getHeight() / 2), new Size(100, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Kopen", () -> {
             if(tile.buyStock(player, stocks)){
