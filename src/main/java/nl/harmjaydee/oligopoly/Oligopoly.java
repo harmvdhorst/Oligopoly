@@ -27,4 +27,8 @@ public class Oligopoly extends YaegerGame {
         addScene(0, new MainScreen(this));
         addScene(1, new GameScreen(game));
     }
+
+    public Game getGame() {
+        return game;
+    }
 }
