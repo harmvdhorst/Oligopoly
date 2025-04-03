@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import nl.harmjaydee.oligopoly.Game;
 import nl.harmjaydee.oligopoly.GamePlayer;
 import nl.harmjaydee.oligopoly.menu.BuyMenu;
+import nl.harmjaydee.oligopoly.menu.InfoMenu;
 import nl.harmjaydee.oligopoly.tiles.PlayerTile;
 import nl.harmjaydee.oligopoly.tiles.SystemTile;
 import nl.harmjaydee.oligopoly.tiles.Tile;
@@ -65,12 +66,19 @@ public class GameScreen extends DynamicScene {
         tile.getStocks().put(2, 25);
         tile.getStocks().put(3, 25);
 
-        Button button = new Button(new Coordinate2D(getWidth() / 2, getHeight() / 2), new Size(100, 50), Color.BLACK, Color.WHITE, Color.BLACK, "Test", () -> {
-            BuyMenu menu = new BuyMenu(this, tile,  null);
-            addEntity(menu);
+        Button button = new Button(new Coordinate2D(getWidth() / 2 - 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Eigendommen", () -> {
+            InfoMenu infoMenu = new InfoMenu(game.getCurrentPlayer(), this);
+            addEntity(infoMenu);
+        });
+
+        Button button2 = new Button(new Coordinate2D(getWidth() / 2 + 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Dobbelen", () -> {
+            // TODO dobbelen
         });
 
         addEntity(button);
+        addEntity(button2);
+
+        game.getPlayers().values().forEach(this::addEntity);
     }
 
     private void addTile(Tile tile) {

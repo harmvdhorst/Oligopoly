@@ -16,7 +16,7 @@ public class InfoMenu extends Menu {
 
     private final List<Tile> tiles;
 
-    protected InfoMenu(GamePlayer player, GameScreen screen) {
+    public InfoMenu(GamePlayer player, GameScreen screen) {
         super(screen);
         tiles = screen.getTiles()
                 .values()
