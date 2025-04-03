@@ -1,13 +1,12 @@
 package nl.harmjaydee.oligopoly.tiles;
 
-import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
+import nl.harmjaydee.oligopoly.Game;
 import nl.harmjaydee.oligopoly.GamePlayer;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
 import nl.harmjaydee.oligopoly.utils.TileRectangle;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PlayerTile extends Tile implements Collider {
@@ -15,9 +14,8 @@ public class PlayerTile extends Tile implements Collider {
     private final Map<Integer, Integer> stocks;
     private int owner = 0;
     private final Tiles type;
-    private int owner = 0;
 
-    public PlayerTile(Tiles type) {
+    public PlayerTile(Game game, Tiles type) {
         super(type, type.getOrientation());
         this.type = type;
         this.stocks = new HashMap<>();
@@ -67,8 +65,6 @@ public class PlayerTile extends Tile implements Collider {
             this.stocks.putIfAbsent(player.getId(), 0);
 
             // check if the maximum of 100 stocks is hit
-            if ((this.stocks.get(player.getId()) + stocks) > 100) {
-                return;
             if((this.stocks.get(player.getId()) + stocks) > 100) {
                 return false;
             }
