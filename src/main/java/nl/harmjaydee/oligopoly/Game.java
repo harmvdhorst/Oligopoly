@@ -39,30 +39,6 @@ public class Game {
 
     }
 
-    public void removeBankBalance(int amount) {
-        bankBalance -= amount;
-    }
-
-    public void addBankBalance(int amount) {
-        bankBalance += amount;
-    }
-
-    public int getBankBalance() {
-        return bankBalance;
-    }
-
-    public GamePlayer getPlayer(int playerId) {
-        return this.players.get(playerId);
-    }
-
-    public GamePlayer getCurrentPlayer() {
-        return this.players.get(this.turn);
-    }
-
-    public Map<Integer, GamePlayer> getPlayers() {
-        return players;
-    }
-
     public void setLastThrown(int lastThrown) {
         this.lastThrown = lastThrown;
     }
