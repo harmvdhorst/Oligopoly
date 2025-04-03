@@ -19,38 +19,44 @@ import java.util.Set;
 
 
 public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Collider, Collided, UpdateExposer {
-
+    private final Game game;
     private int id;
     private int balance;
     private int currentPosition;
 
-    public GamePlayer(int id, String resource, Coordinate2D location) {
+    public GamePlayer(Game game, int id, String resource, Coordinate2D location) {
         super(resource, location, new Size(20, 40), 1, 2);
         this.id = id;
+        this.game = game;
     }
 
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
-
-        if (pressedKeys.contains(KeyCode.LEFT)) {
-            setMotion(3, 270d);
-            setCurrentFrameIndex(0);
-        } else if (pressedKeys.contains(KeyCode.RIGHT)) {
-            setMotion(3, 90d);
-            setCurrentFrameIndex(1);
-        } else if (pressedKeys.contains(KeyCode.UP)) {
-            setMotion(3, 180d);
-        } else if (pressedKeys.contains(KeyCode.DOWN)) {
-            setMotion(3, 0d);
-        } else if (pressedKeys.isEmpty()) {
-            setSpeed(0);
+        if (game.getCurrentPlayer() == this) {
+            if (pressedKeys.contains(KeyCode.LEFT)) {
+                setMotion(3, 270d);
+                setCurrentFrameIndex(0);
+            } else if (pressedKeys.contains(KeyCode.RIGHT)) {
+                setMotion(3, 90d);
+                setCurrentFrameIndex(1);
+            } else if (pressedKeys.contains(KeyCode.UP)) {
+                setMotion(3, 180d);
+            } else if (pressedKeys.contains(KeyCode.DOWN)) {
+                setMotion(3, 0d);
+            } else if (pressedKeys.isEmpty()) {
+                setSpeed(0);
+            }
         }
     }
-
     public void depositMoney(int amount) {
+        balance += amount;
     }
 
     public boolean withdrawMoney(int amount) {
-        return false;
+        if(amount > balance){
+            return false;
+        }
+        balance -= amount;
+        return true;
     }
 
     public int getId() {
@@ -59,7 +65,7 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
 
     public void onCollision(List<Collider> collidingEntities) {
 
-        System.out.println("Collision detected with entities: " + collidingEntities);
+//            System.out.println("Collision detected with entities: " + collidingEntities);
 
     }
 
