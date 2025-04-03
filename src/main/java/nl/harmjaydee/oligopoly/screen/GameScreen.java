@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import nl.harmjaydee.oligopoly.Game;
 import nl.harmjaydee.oligopoly.GamePlayer;
 import nl.harmjaydee.oligopoly.menu.BuyMenu;
+import nl.harmjaydee.oligopoly.menu.DobbelMenu;
 import nl.harmjaydee.oligopoly.menu.InfoMenu;
 import nl.harmjaydee.oligopoly.tiles.PlayerTile;
 import nl.harmjaydee.oligopoly.tiles.SystemTile;
@@ -29,6 +30,11 @@ public class GameScreen extends DynamicScene {
 
     private final Game game;
     private Map<Integer, Tile> tiles = new HashMap<>();
+    private Button dobbelButton;
+
+    public GameScreen(Game game) {
+        this.game = game;
+    }
 
     public GameScreen(Game game) {
         this.game = game;
@@ -50,6 +56,7 @@ public class GameScreen extends DynamicScene {
             }
         }
         addEntity(new RectangleWrapper(new Coordinate2D(50 + 110 + 1, 50 + 110 + 1), new Size(540 - 2, 540 - 2), Color.WHITE));
+
         TextEntity text = new TextEntity(new Coordinate2D(getWidth() / 2, getHeight() / 2), "Oligopoly");
         text.setFont(Font.font("Roboto", 30));
         text.setStrokeColor(Color.BLACK);
@@ -76,6 +83,14 @@ public class GameScreen extends DynamicScene {
         addEntity(button);
         addEntity(button2);
 
+        dobbelButton = new Button(new Coordinate2D(getWidth() / 2 + 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Dobbelen", () -> {
+            // TODO dobbelen
+            addEntity(new DobbelMenu(this));
+        });
+
+        addEntity(button);
+        addEntity(dobbelButton);
+
         game.getPlayers().values().forEach(this::addEntity);
     }
 
@@ -94,5 +109,9 @@ public class GameScreen extends DynamicScene {
 
     public Map<Integer, Tile> getTiles() {
         return tiles;
+    }
+
+    public Button getDobbelButton() {
+        return dobbelButton;
     }
 }

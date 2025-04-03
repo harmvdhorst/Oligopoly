@@ -47,6 +47,7 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
             }
         }
     }
+  
     public void depositMoney(int amount) {
         balance += amount;
     }
@@ -76,7 +77,7 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
         double playerX = getAnchorLocation().getX();
         double playerY = getAnchorLocation().getY();
         if(playerY <= 702 && playerY >= 700 && playerX >= 140 && playerX <= 700 || playerY <= 50) {
-            setAnchorLocationY(playerY + 3);
+           setAnchorLocationY(playerY + 3);
         } else if (playerY >= 780) {
             setAnchorLocationY(playerY - 3);
         }else if(playerY <= 132 && playerY >= 130 && playerX >= 140 && playerX <= 700) {

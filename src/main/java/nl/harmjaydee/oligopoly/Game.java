@@ -15,12 +15,14 @@ public class Game {
     private int bankBalance = 0;
 
     private String state;
+    private int lastThrown = 0;
 
     public Game() {
 
     }
 
     public void nextTurn() {
+        lastThrown = 0;
         this.turn++;
         if(turn > players.size()) {
             turn = 0;
@@ -33,12 +35,36 @@ public class Game {
         }
     }
 
-    public void gameLoop() {
+    public void endGame(GamePlayer winner) {
 
     }
 
-    public void endGame(GamePlayer winner) {
+    public void removeBankBalance(int amount) {
+        bankBalance -= amount;
+    }
 
+    public void addBankBalance(int amount) {
+        bankBalance += amount;
+    }
+
+    public int getBankBalance() {
+        return bankBalance;
+    }
+
+    public GamePlayer getPlayer(int playerId) {
+        return this.players.get(playerId);
+    }
+
+    public GamePlayer getCurrentPlayer() {
+        return this.players.get(this.turn);
+    }
+
+    public Map<Integer, GamePlayer> getPlayers() {
+        return players;
+    }
+
+    public void setLastThrown(int lastThrown) {
+        this.lastThrown = lastThrown;
     }
 
     public void removeBankBalance(int amount) {
