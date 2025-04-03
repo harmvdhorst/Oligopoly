@@ -2,6 +2,7 @@ package nl.harmjaydee.oligopoly.tiles;
 
 import nl.harmjaydee.oligopoly.Game;
 import nl.harmjaydee.oligopoly.GamePlayer;
+import nl.harmjaydee.oligopoly.menu.BuyMenu;
 import nl.harmjaydee.oligopoly.tiles.enums.Tiles;
 import nl.harmjaydee.oligopoly.utils.TileRectangle;
 
@@ -24,11 +25,30 @@ public class PlayerTile extends Tile {
 
     @Override
     public void use(GamePlayer player, String action) {
+        switch (action) {
+            case "buy":
+                break;
+        }
 
     }
 
     public void changeOwner(GamePlayer player) {
         this.owner = player.getId();
+    }
+
+    public boolean payRent(GamePlayer player) {
+        int rent = this.getType().getRent();
+
+        if(!player.withdrawMoney(rent)) {
+            return false;
+        }
+
+        stocks.forEach((playerId, stockAmount) -> {
+            GamePlayer playerToPay = game.getPlayer(playerId);
+            playerToPay.depositMoney((rent / 100) * stockAmount);
+        });
+
+        return true;
     }
 
     public boolean buy(GamePlayer player) {
@@ -57,6 +77,11 @@ public class PlayerTile extends Tile {
             }
         }
 
+        // check if the maximum of 100 stocks is hit
+        if((this.stocks.get(player.getId()) + stocks) > 100) {
+            return false;
+        }
+
         // try to withdraw the owed amount
         int price = (type.getWorth() / 100) * stocks;
         boolean success = player.withdrawMoney(price);
@@ -65,17 +90,17 @@ public class PlayerTile extends Tile {
             // add the player if they dont have any stocks
             this.stocks.putIfAbsent(player.getId(), 0);
 
-            // check if the maximum of 100 stocks is hit
-            if((this.stocks.get(player.getId()) + stocks) > 100) {
-                return false;
-            }
-
             // add the stocks to the new owner and remove them from the old owner
             this.stocks.compute(player.getId(), (k, oldStocks) -> oldStocks + stocks);
             this.stocks.compute(mostStocks, (k, oldStocks) -> oldStocks - stocks);
 
             // pay out old owner + pay the bank
-            // TODO
+            GamePlayer oldOwner = game.getPlayer(mostStocks);
+            if(oldOwner != null) {
+                oldOwner.depositMoney(price / 2);
+            }
+
+            game.addBankBalance(price / 2);
 
         }
 

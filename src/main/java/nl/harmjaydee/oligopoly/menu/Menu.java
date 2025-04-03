@@ -5,6 +5,7 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.CompositeEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import javafx.scene.paint.Color;
+import nl.harmjaydee.oligopoly.utils.Button;
 import nl.harmjaydee.oligopoly.utils.RectangleWrapper;
 
 public abstract class Menu extends CompositeEntity {
