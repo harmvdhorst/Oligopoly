@@ -20,11 +20,14 @@ import nl.harmjaydee.oligopoly.utils.RectangleWrapper;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameScreen extends DynamicScene {
+public class GameScreen extends DynamicScene implements UpdateExposer {
 
     private final Game game;
     private final Map<Integer, Tile> tiles = new HashMap<>();
     private Button dobbelButton;
+    private TextEntity moneh;
+    private TextEntity playerTurn;
+    private TextEntity locationtobe;
 
     public GameScreen(Game game) {
         this.game = game;
@@ -38,6 +41,8 @@ public class GameScreen extends DynamicScene {
 
     @Override
     public void setupEntities() {
+        final int marginTop = 200;
+
         addEntity(new RectangleWrapper(new Coordinate2D(50 - 1, 50 - 1), new Size(760 + 2, 760 + 2), Color.BLACK));
         for (Tiles tile : Tiles.values()) {
             if(tile.getWorth() == 0){
@@ -54,6 +59,29 @@ public class GameScreen extends DynamicScene {
         text.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(text);
 
+        moneh = new TextEntity(new Coordinate2D(getWidth() - marginTop*2, getHeight() / 25), "Money: " + game.getCurrentPlayer().getBalance());
+        moneh.setFont(Font.font("Roboto", 15));
+        moneh.setStrokeColor(Color.BLACK);
+        moneh.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        addEntity(moneh);
+
+        playerTurn = new TextEntity(new Coordinate2D(getWidth() - marginTop *3, getHeight() / 25), "Player: " + game.getCurrentPlayer().getId());
+        playerTurn.setFont(Font.font("Roboto", 15));
+        playerTurn.setStrokeColor(Color.BLACK);
+        playerTurn.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        addEntity(playerTurn);
+
+        locationtobe = new TextEntity(new Coordinate2D(getWidth() - marginTop, getHeight() / 25), "Goto: " + tiles.get(game.getCurrentPlayer().tileToGo));
+        locationtobe.setFont(Font.font("Roboto", 15));
+        locationtobe.setStrokeColor(Color.BLACK);
+        locationtobe.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        addEntity(locationtobe);
+        System.out.println("Loaded " + tiles.size() + " tiles");
+
+        Button button = new Button(new Coordinate2D(getWidth() / 2 - 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Eigendommen", () -> {
+            InfoMenu infoMenu = new InfoMenu(game.getCurrentPlayer(), this);
+            addEntity(infoMenu);
+            
         System.out.println("Loaded " + tiles.size() + " tiles");
 
         Button button = new Button(new Coordinate2D(getWidth() / 2 - 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Eigendommen", () -> {
@@ -101,4 +129,12 @@ public class GameScreen extends DynamicScene {
     public Button getDobbelButton() {
         return dobbelButton;
     }
+
+    @Override
+    public void explicitUpdate(long l) {
+        moneh.setText("Money: " + game.getCurrentPlayer().getBalance());
+        playerTurn.setText("Player: " + game.getCurrentPlayer().getId());
+        locationtobe.setText("Goto: " +tiles.get(game.getCurrentPlayer().tileToGo));
+    }
+
 }

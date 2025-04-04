@@ -133,5 +133,8 @@ public class PlayerTile extends Tile implements Collider {
     public Map<Integer, Integer> getStocks() {
         return stocks;
     }
+    public String toString(){
+        return type.getName();
+    }
 
 }
