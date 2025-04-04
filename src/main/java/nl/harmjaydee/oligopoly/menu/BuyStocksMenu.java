@@ -12,6 +12,7 @@ import nl.harmjaydee.oligopoly.screen.GameScreen;
 import nl.harmjaydee.oligopoly.tiles.PlayerTile;
 import nl.harmjaydee.oligopoly.tiles.Tile;
 import nl.harmjaydee.oligopoly.utils.Button;
+import nl.harmjaydee.oligopoly.utils.TextInput;
 import nl.harmjaydee.oligopoly.utils.TileDisplay;
 
 public class BuyStocksMenu extends Menu {
@@ -20,6 +21,8 @@ public class BuyStocksMenu extends Menu {
     private final GameScreen screen;
     private final PlayerTile tile;
     private final GamePlayer player;
+    private TextInput textInput;
+    private TextEntity bedrag;
 
     private int stocks = 0;
 
@@ -35,10 +38,13 @@ public class BuyStocksMenu extends Menu {
     public void addEntities() {
         addEntity(new TileDisplay(new Coordinate2D(screen.getWidth() / 2 - 60, 50 + 25), new Size(140, 240), tile));
 
-        TextEntity bedrag = new TextEntity(new Coordinate2D(screen.getWidth() / 2, screen.getHeight() / 2), "Bedrag: 100");
+        bedrag = new TextEntity(new Coordinate2D(screen.getWidth() / 2, screen.getHeight() / 2), "Bedrag: 0");
         bedrag.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         bedrag.setFont(Font.font("Roboto", 20));
         addEntity(bedrag);
+
+        textInput = new TextInput(this, new Coordinate2D(screen.getWidth() / 2 - 200, screen.getHeight() / 2), new Size(100, 40));
+        addEntity(textInput);
 
         addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 + 200, screen.getHeight() / 2), new Size(100, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Kopen", () -> {
             if(tile.buyStock(player, stocks)){
@@ -46,6 +52,7 @@ public class BuyStocksMenu extends Menu {
                 remove();
             } else {
                 // error
+                screen.getGame().bankrupt(player);
             }
         }));
 
@@ -53,6 +60,10 @@ public class BuyStocksMenu extends Menu {
             screen.endTurn();
             remove();
         }));
+    }
+
+    public void update() {
+        bedrag.setText("Bedrag: " + (tile.getType().getWorth() / 100 * textInput.getValue()));
     }
 
 }

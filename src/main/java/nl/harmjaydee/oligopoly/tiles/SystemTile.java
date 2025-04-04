@@ -24,7 +24,7 @@ public class SystemTile extends Tile implements Collider {
     @Override
     public void use(GamePlayer player) {
         if(type == Tiles.START){
-            player.depositMoney(100);
+            player.depositMoney(200);
             screen.endTurn();
             return;
         }
@@ -44,6 +44,7 @@ public class SystemTile extends Tile implements Collider {
                 if(!success){
                     // failiet
                     System.out.println("Failliet");
+                    screen.getGame().bankrupt(player);
                 }
             }
             screen.endTurn();
@@ -60,6 +61,7 @@ public class SystemTile extends Tile implements Collider {
             if(!success){
                 // failiet
                 System.out.println("Failliet");
+                screen.getGame().bankrupt(player);
             }
             screen.endTurn();
             return;

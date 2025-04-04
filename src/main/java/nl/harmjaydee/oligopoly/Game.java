@@ -13,14 +13,11 @@ public class Game {
 
     private int bankBalance = 0;
 
-    private int lastThrown = 0;
-
     public Game() {
 
     }
 
     public void nextTurn() {
-        lastThrown = 0;
         this.turn++;
         if(turn == players.size()) {
             turn = 0;
@@ -33,12 +30,17 @@ public class Game {
         }
     }
 
-    public void endGame(GamePlayer winner) {
+    public void bankrupt(GamePlayer player) {
+        player.remove();
+        players.remove(player.getId());
 
+        if(players.size() == 1){
+            endGame(players.values().iterator().next());
+        }
     }
 
-    public void setLastThrown(int lastThrown) {
-        this.lastThrown = lastThrown;
+    public void endGame(GamePlayer winner) {
+        System.out.println("Speler " + winner.getId() + " heeft gewonnen!");
     }
 
     public void removeBankBalance(int amount) {

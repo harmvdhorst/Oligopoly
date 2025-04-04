@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Collider, Collided, UpdateExposer {
     private final Game game;
     private int id;
-    private int balance = Integer.MAX_VALUE;
+    private int balance = 1500;
 
     private int currentPosition = 0;
     private boolean isOnRightTile = false;
