@@ -47,7 +47,7 @@ public class BuyStocksMenu extends Menu {
         addEntity(textInput);
 
         addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 + 200, screen.getHeight() / 2), new Size(100, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Kopen", () -> {
-            if(tile.buyStock(player, stocks)){
+            if(tile.buyStock(player, textInput.getValue())){
                 screen.endTurn();
                 remove();
             } else {

@@ -143,4 +143,8 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
         return "GamePlayer=" + id ;
     }
 
+    public Integer getTileToGo() {
+        return tileToGo;
+    }
+
 }
