@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Collider, Collided, UpdateExposer {
     private final Game game;
-    private int id;
+    private final int id;
 
     private int balance = 1500;
 
@@ -102,8 +102,6 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
 
     @Override
     public void explicitUpdate(long l) {
-
-
         double playerX = getAnchorLocation().getX();
         double playerY = getAnchorLocation().getY();
         if(playerY <= 702 && playerY >= 700 && playerX >= 140 && playerX <= 700 || playerY <= 50) {

@@ -7,7 +7,6 @@ import com.github.hanyaeger.api.scenes.DynamicScene;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import nl.harmjaydee.oligopoly.Game;
-import nl.harmjaydee.oligopoly.menu.BuyStocksMenu;
 import nl.harmjaydee.oligopoly.menu.DobbelMenu;
 import nl.harmjaydee.oligopoly.menu.InfoMenu;
 import nl.harmjaydee.oligopoly.tiles.PlayerTile;
@@ -79,22 +78,26 @@ public class GameScreen extends DynamicScene implements UpdateExposer {
 
         System.out.println("Loaded " + tiles.size() + " tiles");
 
-        Button button = new Button(new Coordinate2D(getWidth() / 2 - 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Eigendommen", () -> {
-            InfoMenu infoMenu = new InfoMenu(game.getCurrentPlayer(), this);
-            addEntity(infoMenu);
-        });
+        Button button = new Button(new Coordinate2D(getWidth() / 2 - 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Eigendommen", this::handlePossessions);
 
-        dobbelButton = new Button(new Coordinate2D(getWidth() / 2 + 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Dobbelen", () -> {
-            addEntity(new DobbelMenu(this, (thrown) -> {
-                game.getCurrentPlayer().addGoal(thrown);
-                game.getCurrentPlayer().setOnRightTile(false);
-            }));
-        });
+        dobbelButton = new Button(new Coordinate2D(getWidth() / 2 + 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Dobbelen", this::handleThrow);
 
         addEntity(button);
         addEntity(dobbelButton);
 
         game.getPlayers().values().forEach(this::addEntity);
+    }
+
+    private void handlePossessions(){
+        InfoMenu infoMenu = new InfoMenu(game.getCurrentPlayer(), this);
+        addEntity(infoMenu);
+    }
+
+    private void handleThrow(){
+        addEntity(new DobbelMenu(this, (thrown) -> {
+            game.getCurrentPlayer().addGoal(thrown);
+            game.getCurrentPlayer().setOnRightTile(false);
+        }));
     }
 
     private void addTile(Tile tile) {

@@ -48,26 +48,30 @@ public class InfoMenu extends Menu {
         }
 
         if(tiles.size() > 1) {
-            addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 - 180, screen.getHeight() / 2), new Size(50, 50), Color.BLACK, Color.WHITE, Color.BLACK, "<", () -> {
-                displays.get(current).setVisible(false);
-                current--;
-                if(current == -1) {
-                    current = displays.size() - 1;
-                }
-                displays.get(current).setVisible(true);
-            }));
+            addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 - 180, screen.getHeight() / 2), new Size(50, 50), Color.BLACK, Color.WHITE, Color.BLACK, "<", this::handleBackButton));
 
-            addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 + 180, screen.getHeight() / 2), new Size(50, 50), Color.BLACK, Color.WHITE, Color.BLACK, ">", () -> {
-                displays.get(current).setVisible(false);
-                current++;
-                if(current == displays.size()) {
-                    current = 0;
-                }
-                displays.get(current).setVisible(true);
-            }));
+            addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 + 180, screen.getHeight() / 2), new Size(50, 50), Color.BLACK, Color.WHITE, Color.BLACK, ">", this::handleForewardButton));
         }
 
         addEntity(new Button(new Coordinate2D(screen.getWidth() / 2, screen.getHeight() / 2 + 250), new Size(200, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Sluit", this::remove));
+    }
+
+    private void handleBackButton(){
+        displays.get(current).setVisible(false);
+        current--;
+        if(current == -1) {
+            current = displays.size() - 1;
+        }
+        displays.get(current).setVisible(true);
+    }
+
+    private void handleForewardButton(){
+        displays.get(current).setVisible(false);
+        current++;
+        if(current == displays.size()) {
+            current = 0;
+        }
+        displays.get(current).setVisible(true);
     }
 
 }

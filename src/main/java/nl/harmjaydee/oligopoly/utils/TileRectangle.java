@@ -114,7 +114,7 @@ public class TileRectangle extends CompositeEntity {
             int y3 = getCalculatedY() + 1;
             int width3 = 0;
             int height3 = 0;
-            Color color3 = type.getColor().getColor();
+            Color color3 = type.getColor();
 
             if(type.getOrientation() == Orientation.LEFT || type.getOrientation() == Orientation.RIGHT) {
                 width3 = tileHeight - (tileHeight - tileColorHeight) - 1;

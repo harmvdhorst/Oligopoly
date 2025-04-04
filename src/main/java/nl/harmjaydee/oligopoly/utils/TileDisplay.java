@@ -31,7 +31,7 @@ public class TileDisplay extends CompositeEntity {
         addEntity(new RectangleWrapper(new Coordinate2D(pos.getX() - 1, pos.getY() - 1), new Size(size.width() + 2, size.height() + 2), Color.BLACK));
         addEntity(new RectangleWrapper(pos, size, Color.WHITE));
 
-        addEntity(new RectangleWrapper(pos, new Size(size.width(), size.height() / 5), tile.getType().getColor().getColor()));
+        addEntity(new RectangleWrapper(pos, new Size(size.width(), size.height() / 5), tile.getType().getColor()));
 
         int textX = (int) (pos.getX() + 10);
 

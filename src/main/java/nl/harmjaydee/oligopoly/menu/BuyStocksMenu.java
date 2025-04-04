@@ -24,8 +24,6 @@ public class BuyStocksMenu extends Menu {
     private TextInput textInput;
     private TextEntity bedrag;
 
-    private int stocks = 0;
-
     public BuyStocksMenu(GameScreen screen, PlayerTile tile, GamePlayer player) {
         super(screen);
         this.tile = tile;
@@ -46,24 +44,28 @@ public class BuyStocksMenu extends Menu {
         textInput = new TextInput(this, new Coordinate2D(screen.getWidth() / 2 - 200, screen.getHeight() / 2), new Size(100, 40));
         addEntity(textInput);
 
-        addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 + 200, screen.getHeight() / 2), new Size(100, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Kopen", () -> {
-            if(tile.buyStock(player, textInput.getValue())){
-                screen.endTurn();
-                remove();
-            } else {
-                // error
-                screen.getGame().bankrupt(player);
-            }
-        }));
+        addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 + 200, screen.getHeight() / 2), new Size(100, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Kopen", this::handleBuyButton));
 
-        addEntity(new Button(new Coordinate2D(screen.getWidth() / 2, screen.getHeight() - 200), new Size(200, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Beurt beeindigen", () -> {
-            screen.endTurn();
-            remove();
-        }));
+        addEntity(new Button(new Coordinate2D(screen.getWidth() / 2, screen.getHeight() - 200), new Size(200, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Beurt beeindigen", this::handleEndTurnButton));
     }
 
     public void update() {
         bedrag.setText("Bedrag: " + (tile.getType().getWorth() / 100 * textInput.getValue()));
+    }
+
+    private void handleBuyButton(){
+        if(tile.buyStock(player, textInput.getValue())){
+            screen.endTurn();
+            remove();
+        } else {
+            // error
+            screen.getGame().bankrupt(player);
+        }
+    }
+
+    private void handleEndTurnButton(){
+        screen.endTurn();
+        remove();
     }
 
 }
