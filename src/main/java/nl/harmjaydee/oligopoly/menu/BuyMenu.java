@@ -47,6 +47,7 @@ public class BuyMenu extends Menu {
                 } else {
                     // failliet
                     System.out.println("Failliet");
+                    screen.getGame().bankrupt(player);
                 }
             } else {
                 if(tile.payRent(player)){
@@ -55,6 +56,7 @@ public class BuyMenu extends Menu {
                 } else {
                     // failliet
                     System.out.println("Failliet");
+                    screen.getGame().bankrupt(player);
                 }
             }
         }));

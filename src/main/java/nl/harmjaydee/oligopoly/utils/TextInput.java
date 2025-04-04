@@ -11,10 +11,17 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import nl.harmjaydee.oligopoly.menu.BuyStocksMenu;
 
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class TextInput extends DynamicCompositeEntity implements KeyListener, MouseButtonPressedListener {
+
+    private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+    private final BuyStocksMenu menu;
 
     private final Coordinate2D pos;
     private final Size size;
@@ -24,7 +31,9 @@ public class TextInput extends DynamicCompositeEntity implements KeyListener, Mo
 
     private final TextEntity text;
 
-    public TextInput(Coordinate2D pos, Size size) {
+    private boolean wasClicked = false;
+
+    public TextInput(BuyStocksMenu menu, Coordinate2D pos, Size size) {
         super(new Coordinate2D(0, 0));
         this.pos = pos;
         this.size = size;
@@ -32,6 +41,7 @@ public class TextInput extends DynamicCompositeEntity implements KeyListener, Mo
         text.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         text.setFill(Color.BLACK);
         text.setFont(Font.font("Roboto", 20));
+        this.menu = menu;
     }
 
     @Override
@@ -43,27 +53,32 @@ public class TextInput extends DynamicCompositeEntity implements KeyListener, Mo
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> set) {
-        if(selected) {
+        if(selected && !wasClicked) {
             if(set.contains(KeyCode.ESCAPE)) {
                 selected = false;
-                return;
             }
             if(set.contains(KeyCode.BACK_SPACE)) {
                 if(!sb.isEmpty()) {
                     sb.deleteCharAt(sb.length() - 1);
                 }
-                return;
             }
             for (KeyCode key : set) {
                 if(key.name().startsWith("DIGIT")){
                     String number = key.name().replaceAll("DIGIT","");
-                    if(sb.length() == 2) {
+                    int digit = Integer.parseInt(number);
+                    if(sb.length() == 2 || digit > (sb.length() == 1 ? 5 : 2)) {
                         return;
                     }
                     sb.append(number);
                 }
             }
             text.setText(sb.toString());
+            wasClicked = true;
+            menu.update();
+
+            executor.schedule(() -> {
+                wasClicked = false;
+            }, 200, TimeUnit.MILLISECONDS);
         }
     }
 
@@ -72,6 +87,13 @@ public class TextInput extends DynamicCompositeEntity implements KeyListener, Mo
         if(button == MouseButton.PRIMARY) {
             selected = true;
         }
+    }
+
+    public int getValue() {
+        if(sb.isEmpty()) {
+            return 0;
+        }
+        return Integer.parseInt(sb.toString());
     }
 
 }
