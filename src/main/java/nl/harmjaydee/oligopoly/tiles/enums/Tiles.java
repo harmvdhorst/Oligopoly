@@ -1,5 +1,7 @@
 package nl.harmjaydee.oligopoly.tiles.enums;
 
+import javafx.scene.paint.Color;
+
 public enum Tiles {
 
     // corners
@@ -33,9 +35,9 @@ public enum Tiles {
     DUBLOENDREEF(3, "Dubloendreef", Color.BROWN, Orientation.RIGHT, 60, 4),
 
     // Light Blue
-    HAN(6, "HAN", Color.LIGHT_BLUE, Orientation.RIGHT, 100, 6),
-    BURO302(8, "Buro 302", Color.LIGHT_BLUE, Orientation.RIGHT, 100, 6),
-    ARNHEM_CENTRAAL(9, "Arnhem Centraal", Color.LIGHT_BLUE, Orientation.RIGHT, 120, 6),
+    HAN(6, "HAN", Color.LIGHTBLUE, Orientation.RIGHT, 100, 6),
+    BURO302(8, "Buro 302", Color.LIGHTBLUE, Orientation.RIGHT, 100, 6),
+    ARNHEM_CENTRAAL(9, "Arnhem Centraal", Color.LIGHTBLUE, Orientation.RIGHT, 120, 6),
 
     // Purple
     GOFFERTPARK(11, "Goffert Park", Color.PURPLE, Orientation.DOWN, 140, 10),
@@ -68,7 +70,7 @@ public enum Tiles {
 
     private final int pos;
     private final String name;
-    private Color color;
+    private javafx.scene.paint.Color color;
     private final Orientation orientation;
     private final int rent;
     private int worth = 0;
@@ -80,7 +82,7 @@ public enum Tiles {
         this.rent = rent;
     }
 
-    Tiles(int pos, String name, Color color, Orientation orientation, int worth, int rent) {
+    Tiles(int pos, String name, javafx.scene.paint.Color color, Orientation orientation, int worth, int rent) {
         this.pos = pos;
         this.name = name;
         this.color = color;

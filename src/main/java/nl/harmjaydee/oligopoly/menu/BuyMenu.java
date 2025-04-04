@@ -39,44 +39,46 @@ public class BuyMenu extends Menu {
         bedrag.setFont(Font.font("Roboto", 20));
         addEntity(bedrag);
 
-        addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 - 200, screen.getHeight() / 2), new Size(100, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Betaal", () -> {
-            if(buy){
-                if(tile.buy(player)){
-                    screen.endTurn();
-                    remove();
-                } else {
-                    // failliet
-                    System.out.println("Failliet");
-                    screen.getGame().bankrupt(player);
-                }
-            } else {
-                if(tile.payRent(player)){
-                    screen.endTurn();
-                    remove();
-                } else {
-                    // failliet
-                    System.out.println("Failliet");
-                    screen.getGame().bankrupt(player);
-                }
-            }
-        }));
+        addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 - 200, screen.getHeight() / 2), new Size(100, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Betaal", this::handlePayButton));
 
         if(!buy){
             if(tile.getOwner() != -1){
-                addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 + 200, screen.getHeight() / 2), new Size(100, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Aandelen", () -> {
-                    BuyStocksMenu menu = new BuyStocksMenu(screen, tile, player);
-                    screen.addEntityBypass(menu);
-                    remove();
-                }));
+                addEntity(new Button(new Coordinate2D(screen.getWidth() / 2 + 200, screen.getHeight() / 2), new Size(100, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Aandelen", this::handleStocksButton));
             }
         }
 
-        addEntity(new Button(new Coordinate2D(screen.getWidth() / 2, screen.getHeight() - 200), new Size(200, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Beurt beeindigen", () -> {
-            if(buy){
+        addEntity(new Button(new Coordinate2D(screen.getWidth() / 2, screen.getHeight() - 200), new Size(200, 40), Color.BLACK, Color.WHITE, Color.BLACK, "Beurt beeindigen", this::handleEndTurn));
+    }
+
+    private void handlePayButton(){
+        if(buy){
+            if(tile.buy(player)){
                 screen.endTurn();
                 remove();
+            } else {
+                // failliet
+                System.out.println("Failliet");
+                screen.getGame().bankrupt(player);
             }
-        }));
+        } else {
+            if(!tile.payRent(player)){
+                System.out.println("Failliet");
+                screen.getGame().bankrupt(player);
+            }
+        }
+    }
+
+    private void handleStocksButton(){
+        BuyStocksMenu menu = new BuyStocksMenu(screen, tile, player);
+        screen.addEntityBypass(menu);
+        remove();
+    }
+
+    private void handleEndTurn(){
+        if(buy){
+            screen.endTurn();
+            remove();
+        }
     }
 
 }

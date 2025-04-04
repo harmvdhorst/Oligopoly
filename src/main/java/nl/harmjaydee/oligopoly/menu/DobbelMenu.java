@@ -14,13 +14,13 @@ import java.util.function.Consumer;
 
 public class DobbelMenu extends DynamicCompositeEntity implements TimerContainer {
 
-    private DobbelMenu dobbelMenu;
-    private Consumer<Integer> callback;
+    private final DobbelMenu dobbelMenu;
+    private final Consumer<Integer> callback;
 
     private final ThreadLocalRandom random = ThreadLocalRandom.current();
 
     private TextEntity textEntity;
-    private GameScreen screen;
+    private final GameScreen screen;
 
     private int rotations = 0;
 
@@ -51,7 +51,6 @@ public class DobbelMenu extends DynamicCompositeEntity implements TimerContainer
             public void onAnimationUpdate(long l) {
                 if(rotations >= 40){
                     screen.getDobbelButton().setVisible(false);
-                    //screen.getGame().setLastThrown(thrown);
                     callback.accept(thrown);
                     dobbelMenu.remove();
                     remove();

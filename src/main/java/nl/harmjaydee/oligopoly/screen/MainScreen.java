@@ -41,24 +41,13 @@ public class MainScreen extends DynamicScene {
         oligopolyText.setFont(Font.font("Roboto", FontWeight.SEMI_BOLD, 80));
         addEntity(oligopolyText);
 
-        Button startbutton = new Button(new Coordinate2D(getWidth() / 2 + 50, getHeight() - marginBottom), new Size(100, 50), Color.BLACK, Color.WHITE, Color.BLACK, "Start", () -> {
-            oligopoly.getGame().startGame(selectedPlayers);
-            oligopoly.setActiveScene(1);
-        });
+        Button startbutton = new Button(new Coordinate2D(getWidth() / 2 + 50, getHeight() - marginBottom), new Size(100, 50), Color.BLACK, Color.WHITE, Color.BLACK, "Start", this::handleStartButton);
 
-        Button addPlayers = new Button(new Coordinate2D(getWidth()/2 - 150, getHeight()/2), new Size(50, 50), Color.BLACK, Color.WHITE, Color.BLACK, "+", () -> {
-            if(selectedPlayers == maxPlayers) return;
-            selectedPlayers++;
-            text.setText("" + selectedPlayers);
-        });
+        Button addPlayers = new Button(new Coordinate2D(getWidth()/2 - 150, getHeight()/2), new Size(50, 50), Color.BLACK, Color.WHITE, Color.BLACK, "+", this::handlePlusButton);
 
         addEntity(addPlayers);
 
-        Button removePlayers = new Button(new Coordinate2D(getWidth()/2 + 150, getHeight()/2), new Size(50, 50), Color.BLACK, Color.WHITE, Color.BLACK, "-", () -> {
-            if(selectedPlayers == minPlayers) return;
-            selectedPlayers--;
-            text.setText(selectedPlayers + "");
-        });
+        Button removePlayers = new Button(new Coordinate2D(getWidth()/2 + 150, getHeight()/2), new Size(50, 50), Color.BLACK, Color.WHITE, Color.BLACK, "-", this::handleMinusButton);
 
         addEntity(removePlayers);
 
@@ -71,5 +60,22 @@ public class MainScreen extends DynamicScene {
         startbutton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(startbutton);
 
+    }
+
+    private void handleStartButton(){
+        oligopoly.getGame().startGame(selectedPlayers);
+        oligopoly.setActiveScene(1);
+    }
+
+    private void handlePlusButton(){
+        if(selectedPlayers == maxPlayers) return;
+        selectedPlayers++;
+        text.setText("" + selectedPlayers);
+    }
+
+    private void handleMinusButton(){
+        if(selectedPlayers == minPlayers) return;
+        selectedPlayers--;
+        text.setText(selectedPlayers + "");
     }
 }

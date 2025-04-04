@@ -9,7 +9,6 @@ public class Game {
 
     private final Map<Integer, GamePlayer> players = new HashMap<>();
     private int turn = 0;
-    private int totalStocks = 0;
 
     private int bankBalance = 0;
 

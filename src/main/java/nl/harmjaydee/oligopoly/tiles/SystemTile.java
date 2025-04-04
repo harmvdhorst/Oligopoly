@@ -24,30 +24,15 @@ public class SystemTile extends Tile implements Collider {
     @Override
     public void use(GamePlayer player) {
         if(type == Tiles.START){
-            player.depositMoney(200);
-            screen.endTurn();
+            handleStart(player);
             return;
         }
         if(type.name().startsWith("PARKEREN")){
-            int bank = screen.getGame().getBankBalance();
-            player.depositMoney(bank);
-            screen.getGame().removeBankBalance(bank);
-            screen.endTurn();
+            handlePark(player);
             return;
         }
         if(type.name().startsWith("STATION")){
-            int random = ThreadLocalRandom.current().nextInt(1, 4);
-            if(random > 2){
-                player.depositMoney(100);
-            } else {
-                boolean success = player.withdrawMoney(100);
-                if(!success){
-                    // failiet
-                    System.out.println("Failliet");
-                    screen.getGame().bankrupt(player);
-                }
-            }
-            screen.endTurn();
+            handleStations(player);
             return;
         }
         if(type.name().startsWith("KANS")){
@@ -56,16 +41,46 @@ public class SystemTile extends Tile implements Collider {
             return;
         }
         if(type.name().startsWith("BELASTING")){
-            int rent = type.getRent();
-            boolean success = player.withdrawMoney(rent);
+            handleTax(player);
+            return;
+        }
+    }
+
+    private void handleStart(GamePlayer player) {
+        player.depositMoney(200);
+        screen.endTurn();
+    }
+    private void handlePark(GamePlayer player) {
+        int bank = screen.getGame().getBankBalance();
+        player.depositMoney(bank);
+        screen.getGame().removeBankBalance(bank);
+        screen.endTurn();
+    }
+
+    private void handleStations(GamePlayer player) {
+        int random = ThreadLocalRandom.current().nextInt(1, 4);
+        if(random > 2){
+            player.depositMoney(100);
+        } else {
+            boolean success = player.withdrawMoney(100);
             if(!success){
                 // failiet
                 System.out.println("Failliet");
                 screen.getGame().bankrupt(player);
             }
-            screen.endTurn();
-            return;
         }
+        screen.endTurn();
+    }
+
+    private void handleTax(GamePlayer player) {
+        int rent = type.getRent();
+        boolean success = player.withdrawMoney(rent);
+        if(!success){
+            // failiet
+            System.out.println("Failliet");
+            screen.getGame().bankrupt(player);
+        }
+        screen.endTurn();
     }
 
     @Override
