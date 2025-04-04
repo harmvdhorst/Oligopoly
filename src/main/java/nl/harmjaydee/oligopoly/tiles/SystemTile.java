@@ -74,6 +74,6 @@ public class SystemTile extends Tile implements Collider {
     }
 
     public String toString() {
-        return "SystemTile{type=" + type + "}";
+        return type.getName();
     }
 }

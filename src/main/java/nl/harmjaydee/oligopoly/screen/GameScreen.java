@@ -59,29 +59,24 @@ public class GameScreen extends DynamicScene implements UpdateExposer {
         text.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(text);
 
-        moneh = new TextEntity(new Coordinate2D(getWidth() - marginTop*2, getHeight() / 25), "Money: " + game.getCurrentPlayer().getBalance());
+        moneh = new TextEntity(new Coordinate2D(getWidth() / 2, 25), "Money: " + game.getCurrentPlayer().getBalance());
         moneh.setFont(Font.font("Roboto", 15));
         moneh.setStrokeColor(Color.BLACK);
         moneh.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(moneh);
 
-        playerTurn = new TextEntity(new Coordinate2D(getWidth() - marginTop *3, getHeight() / 25), "Player: " + game.getCurrentPlayer().getId());
+        playerTurn = new TextEntity(new Coordinate2D(getWidth() /2 - 200, 25), "Player: " + game.getCurrentPlayer().getId());
         playerTurn.setFont(Font.font("Roboto", 15));
         playerTurn.setStrokeColor(Color.BLACK);
         playerTurn.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(playerTurn);
 
-        locationtobe = new TextEntity(new Coordinate2D(getWidth() - marginTop, getHeight() / 25), "Goto: " + tiles.get(game.getCurrentPlayer().tileToGo));
+        locationtobe = new TextEntity(new Coordinate2D(getWidth() / 2 + 200, 25), "Goto: " + tiles.get(game.getCurrentPlayer().getTileToGo()));
         locationtobe.setFont(Font.font("Roboto", 15));
         locationtobe.setStrokeColor(Color.BLACK);
         locationtobe.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(locationtobe);
-        System.out.println("Loaded " + tiles.size() + " tiles");
 
-        Button button = new Button(new Coordinate2D(getWidth() / 2 - 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Eigendommen", () -> {
-            InfoMenu infoMenu = new InfoMenu(game.getCurrentPlayer(), this);
-            addEntity(infoMenu);
-            
         System.out.println("Loaded " + tiles.size() + " tiles");
 
         Button button = new Button(new Coordinate2D(getWidth() / 2 - 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Eigendommen", () -> {
@@ -130,9 +125,9 @@ public class GameScreen extends DynamicScene implements UpdateExposer {
 
     @Override
     public void explicitUpdate(long l) {
-        moneh.setText("Money: " + game.getCurrentPlayer().getBalance());
-        playerTurn.setText("Player: " + game.getCurrentPlayer().getId());
-        locationtobe.setText("Goto: " +tiles.get(game.getCurrentPlayer().tileToGo));
+        moneh.setText("Gelg: " + game.getCurrentPlayer().getBalance());
+        playerTurn.setText("Speler: " + game.getCurrentPlayer().getId());
+        locationtobe.setText("Ga naar: " +tiles.get(game.getCurrentPlayer().getTileToGo()));
     }
 
 }
