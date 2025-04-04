@@ -125,7 +125,7 @@ public class GameScreen extends DynamicScene implements UpdateExposer {
 
     @Override
     public void explicitUpdate(long l) {
-        moneh.setText("Gelg: " + game.getCurrentPlayer().getBalance());
+        moneh.setText("Geld: " + game.getCurrentPlayer().getBalance());
         playerTurn.setText("Speler: " + game.getCurrentPlayer().getId());
         locationtobe.setText("Ga naar: " +tiles.get(game.getCurrentPlayer().getTileToGo()));
     }
