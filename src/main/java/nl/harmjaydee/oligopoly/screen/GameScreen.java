@@ -85,10 +85,8 @@ public class GameScreen extends DynamicScene implements UpdateExposer {
         System.out.println("Loaded " + tiles.size() + " tiles");
 
         Button button = new Button(new Coordinate2D(getWidth() / 2 - 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Eigendommen", () -> {
-//            InfoMenu infoMenu = new InfoMenu(game.getCurrentPlayer(), this);
-//            addEntity(infoMenu);
-            BuyStocksMenu menu = new BuyStocksMenu(this, new PlayerTile(this, Tiles.ARNHEM_CENTRAAL), game.getCurrentPlayer());
-            addEntity(menu);
+            InfoMenu infoMenu = new InfoMenu(game.getCurrentPlayer(), this);
+            addEntity(infoMenu);
         });
 
         dobbelButton = new Button(new Coordinate2D(getWidth() / 2 + 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Dobbelen", () -> {
