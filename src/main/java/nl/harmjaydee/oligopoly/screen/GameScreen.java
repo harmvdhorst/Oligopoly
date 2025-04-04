@@ -7,6 +7,7 @@ import com.github.hanyaeger.api.scenes.DynamicScene;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import nl.harmjaydee.oligopoly.Game;
+import nl.harmjaydee.oligopoly.menu.BuyStocksMenu;
 import nl.harmjaydee.oligopoly.menu.DobbelMenu;
 import nl.harmjaydee.oligopoly.menu.InfoMenu;
 import nl.harmjaydee.oligopoly.tiles.PlayerTile;
@@ -19,7 +20,6 @@ import nl.harmjaydee.oligopoly.utils.RectangleWrapper;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class GameScreen extends DynamicScene implements UpdateExposer {
 
     private final Game game;
@@ -28,6 +28,7 @@ public class GameScreen extends DynamicScene implements UpdateExposer {
     private TextEntity moneh;
     private TextEntity playerTurn;
     private TextEntity locationtobe;
+
     public GameScreen(Game game) {
         this.game = game;
     }
@@ -41,6 +42,7 @@ public class GameScreen extends DynamicScene implements UpdateExposer {
     @Override
     public void setupEntities() {
         final int marginTop = 200;
+
         addEntity(new RectangleWrapper(new Coordinate2D(50 - 1, 50 - 1), new Size(760 + 2, 760 + 2), Color.BLACK));
         for (Tiles tile : Tiles.values()) {
             if(tile.getWorth() == 0){
@@ -79,6 +81,14 @@ public class GameScreen extends DynamicScene implements UpdateExposer {
         Button button = new Button(new Coordinate2D(getWidth() / 2 - 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Eigendommen", () -> {
             InfoMenu infoMenu = new InfoMenu(game.getCurrentPlayer(), this);
             addEntity(infoMenu);
+            
+        System.out.println("Loaded " + tiles.size() + " tiles");
+
+        Button button = new Button(new Coordinate2D(getWidth() / 2 - 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Eigendommen", () -> {
+//            InfoMenu infoMenu = new InfoMenu(game.getCurrentPlayer(), this);
+//            addEntity(infoMenu);
+            BuyStocksMenu menu = new BuyStocksMenu(this, new PlayerTile(this, Tiles.ARNHEM_CENTRAAL), game.getCurrentPlayer());
+            addEntity(menu);
         });
 
         dobbelButton = new Button(new Coordinate2D(getWidth() / 2 + 100, 50 + 110 + (7 * 60)), new Size(100, 30), Color.BLACK, Color.WHITE, Color.BLACK, "Dobbelen", () -> {
@@ -126,4 +136,5 @@ public class GameScreen extends DynamicScene implements UpdateExposer {
         playerTurn.setText("Player: " + game.getCurrentPlayer().getId());
         locationtobe.setText("Goto: " +tiles.get(game.getCurrentPlayer().tileToGo));
     }
+
 }

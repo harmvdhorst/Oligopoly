@@ -25,11 +25,12 @@ import java.util.stream.Collectors;
 public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Collider, Collided, UpdateExposer {
     private final Game game;
     private int id;
-    private int balance = Integer.MAX_VALUE;
+
+    private int balance = 1500;
 
     private int currentPosition = 0;
     private boolean isOnRightTile = false;
-    public int tileToGo = 1;
+    private int tileToGo = 1;
 
     private boolean isAllowedToMove = false;
 
@@ -58,7 +59,7 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
             }
         }
     }
-
+  
     public void depositMoney(int amount) {
         balance += amount;
     }
@@ -133,6 +134,7 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
         }
         isAllowedToMove = true;
     }
+
     public int getBalance() {
         return balance;
     }
@@ -140,4 +142,5 @@ public class GamePlayer extends DynamicSpriteEntity implements KeyListener, Coll
     public String toString() {
         return "GamePlayer=" + id ;
     }
+
 }
